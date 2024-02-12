@@ -1,0 +1,1 @@
+'This is a reminder that the domain '.$item->domain.' is scheduled to expire on '.date_create($item->expires_on)->format('j\<\s\u\p\>S\<\s\u\p\/\> F Y').' ('.$diff->days.' Days)';
