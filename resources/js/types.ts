@@ -62,3 +62,13 @@ export interface iAccount {
         },
     ]
 }
+
+export interface iInvoice {
+    id: number
+    name: string
+    ref: string
+    amount: number
+    barcode: string
+    qrcode: string
+    client: iClient
+}

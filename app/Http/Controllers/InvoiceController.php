@@ -6,13 +6,15 @@ use App;
 
 use PDF;
 use Validator;
-use App\Models\Client;
+use Inertia\Inertia;
 
+use App\Models\Client;
 use App\Models\Account;
 use App\Models\Invoice;
 use App\Models\Delivery;
-use App\Models\InvoiceDetail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\InvoiceDetail;
 
 class InvoiceController extends Controller
 {
@@ -20,16 +22,69 @@ class InvoiceController extends Controller
     {
         $invoices = null;
         $client = null;
+        $search = request()->input('search');
 
         if ($client_id) {
-            $invoices = Invoice::with('account.client')->orderBy('id', 'DESC')->where('client_id', '=', $client_id)->get();
             $client = Client::find($client_id);
-            // dd($client_id);
-        } else {
-            $invoices = Invoice::with('account.client')->orderBy('id', 'DESC')->get();
         }
+        $invoices = Invoice::with('account.client')
+            ->orderBy('id', 'DESC')
+            ->when($client_id, function ($query) use ($client_id) {
+                $query->where('client_id', '=', $client_id);
+            })
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('account.client', function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%");
+                })->orWhere('name', 'LIKE', "%$search%");
+            })
+            ->paginate(10);
 
-        return view('invoices.index', compact('invoices', 'client'));
+        $accounts = Account::with('client')
+            ->get()->map(fn ($item) => [
+                "id" => $item->id,
+                "name" => sprintf('%s - %s', $item->client->name, $item->name),
+            ])->sortBy('name');
+
+
+        // return view('invoices.index', compact('invoices', 'client'));
+        return Inertia::render('Invoices/Index', [
+            'invoices' => $invoices->through(function ($item) {
+                return [
+                    "id" => $item->id,
+                    "name" => $item->name,
+                    "ref" => $item->ref,
+                    "amount" => $item->amount(),
+                    "barcode" => $item->barcode,
+                    "qrcode" => $item->qrcode,
+                    "client" => [
+                        "id" => $item->account->client->id,
+                        "name" => $item->account->client->name,
+                        "phone" => $item->account->client->phone,
+                        "email" => $item->account->client->email,
+                        "postal_address" => ($item->account->client->box_no || $item->account->client->post_code || $item->account->client->town) ? sprintf(
+                            "P.O. Box %s %s %s",
+                            trim(ltrim(
+                                Str::lower($item->account->client->box_no),
+                                'p.o. box'
+                            )),
+                            $item->account->client->post_code ? ' - ' . $item->account->client->post_code : '',
+                            $item->account->client->town ? ', ' . $item->account->client->town : ''
+                        ) : '',
+                        "location" => $item->account->client->address,
+                    ],
+                    "items" => $item->items->map(fn ($item) => [
+                        "id" => $item->id,
+                        "particulars" => $item->particulars,
+                        "quantity" => $item->quantity,
+                        "price" => $item->price,
+                        "total" => $item->price * $item->quantity,
+                    ]),
+                ];
+            }),
+            'client' => $client,
+            'searchVal' => $search,
+            'accounts' => $accounts,
+        ]);
     }
 
     public function create($client_id = null)

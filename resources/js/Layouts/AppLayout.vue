@@ -3,10 +3,17 @@ import { Head } from '@inertiajs/vue3';
 import Banner from '@/Components/Banner.vue';
 import Navbar from './Navbar.vue'
 import Sidebar from './Sidebar.vue'
+import { ref } from "vue";
 
 defineProps({
     title: String,
 });
+
+const sidebarState = ref(false)
+
+const toggleSidebar = (value) => {
+    sidebarState.value = value
+}
 
 </script>
 
@@ -18,7 +25,7 @@ defineProps({
         <Banner />
 
         <div class="min-h-screen bg-gray-100 flex flex-col">
-            <Navbar class="flex-none">
+            <Navbar @toggle="toggleSidebar" class="flex-none">
                 <!-- Page Heading -->
                 <template #header>
                     <div v-if="$slots.header" class="uppercase font-thin">
@@ -27,10 +34,10 @@ defineProps({
                     <div v-else v-text="title"></div>
                 </template>
             </Navbar>
-            <div class="relative flex-1">
-                <Sidebar />
+            <div class="relative flex-1 flex transition-all duration-500 ease-in-out">
+                <Sidebar :toggle="sidebarState" />
                 <!-- Page Content -->
-                <main class="ml-3 md:ml-64 mr-3">
+                <main class="flex-1">
                     <slot />
                 </main>
             </div>
