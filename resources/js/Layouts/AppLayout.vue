@@ -3,17 +3,21 @@ import { Head } from '@inertiajs/vue3';
 import Banner from '@/Components/Banner.vue';
 import Navbar from './Navbar.vue'
 import Sidebar from './Sidebar.vue'
-import { ref } from "vue";
+import { ref, watch } from 'vue';
 
 defineProps({
     title: String,
 });
 
-const sidebarState = ref(false)
+const sidebarState = ref(parseInt(localStorage.getItem('toggleSidebar')) == 1 ? true : false)
 
 const toggleSidebar = (value) => {
     sidebarState.value = value
 }
+
+watch(() => sidebarState.value, (value) => {
+    localStorage.setItem('toggleSidebar', value ? "1" : "0")
+})
 
 </script>
 

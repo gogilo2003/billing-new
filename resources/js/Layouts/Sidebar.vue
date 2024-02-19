@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import Icon from '../Components/Icons/Icon.vue'
-import { watch } from 'vue';
+import { watch, onMounted } from 'vue';
 
 const props = defineProps({
-    toggle: {
-        type: Boolean,
-        default: false
-    }
+    toggle: Boolean
 })
+
 
 const links = [
     {
@@ -62,9 +60,9 @@ const links = [
 
 </script>
 <template>
-    <div class="relative w-80 flex-none" :class="{ 'block': toggle, 'hidden': !toggle }">
+    <div class="relative block flex-none transition[width] duration-500" :class="{ 'w-80': toggle, 'w-0': !toggle }">
         <div
-            class="sticky top-[4.5rem] min-h-[calc(100svh_-_8rem)] ml-6 my-2 bg-gradient-to-b to-secondary-default from-primary-default rounded-lg">
+            class="sticky top-[4.6rem] overflow-hidden min-h-[calc(100svh_-_8rem)] ml-6 my-2 bg-gradient-to-b to-secondary-default from-primary-default rounded-lg">
             <div class="px-3 py-1">
                 <div class="flex items-center border-b border-gray-50/50 py-1">
                     <div class="flex-none h-12 w-12 p-1">

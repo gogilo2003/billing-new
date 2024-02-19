@@ -219,11 +219,6 @@ const deleteClient = (id) => {
         </form>
     </Modal>
     <AppLayout title="Clients">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Clients
-            </h2>
-        </template>
 
         <div class="py-2">
             <div class="sm:px-6 lg:px-8">

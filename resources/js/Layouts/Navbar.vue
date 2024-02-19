@@ -14,7 +14,7 @@ defineProps({
 const emit = defineEmits(['toggle'])
 
 const showingNavigationDropdown = ref(false);
-const sidebar = ref(false);
+const sidebar = ref(parseInt(localStorage.getItem('toggleSidebar')) == 1 ? true : false);
 
 const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
@@ -35,7 +35,7 @@ const toggleSidebar = () => {
 }
 </script>
 <template>
-    <nav class="sticky top-0 bg-transparent border-t-2 border-primary-default">
+    <nav class="sticky top-0 z-10 bg-gray-100 border-t-2 border-primary-default">
         <!-- Primary Navigation Menu -->
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">

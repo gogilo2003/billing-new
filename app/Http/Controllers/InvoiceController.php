@@ -39,12 +39,13 @@ class InvoiceController extends Controller
             })
             ->paginate(10);
 
-        $accounts = Account::with('client')
+        $accounts = Account::with(['client' => function ($query) {
+            $query->orderBy('name');
+        }])
             ->get()->map(fn ($item) => [
                 "id" => $item->id,
                 "name" => sprintf('%s - %s', $item->client->name, $item->name),
-            ])->sortBy('name');
-
+            ]);
 
         // return view('invoices.index', compact('invoices', 'client'));
         return Inertia::render('Invoices/Index', [
@@ -114,7 +115,7 @@ class InvoiceController extends Controller
                 ->back()
                 ->withInput()
                 ->withErrors($validator)
-                ->with('global-warning', 'Some fields faild validation');
+                ->with('global-warning', 'Some fields failed validation');
         }
 
         $account = Account::find($request->input('account'));
