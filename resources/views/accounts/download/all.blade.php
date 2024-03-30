@@ -19,17 +19,16 @@
             </thead>
             <tbody>
                 @foreach ($accounts as $account)
-                    {{-- <tr>
+                    <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             <div>{{ $account->client->name }}</div>
                             <div>{{ $account->name }}</div>
                         </td>
-                        <td class="text-right">{{ $, 2) : '' }}</td>
+                        <td class="text-right">{{ number_format($tx->amount, 2) ?? '' }}</td>
                         <td class="text-right">{{ $tx->type === 'CR' ? number_format($tx->amount, 2) : '' }}</td>
                         <td class="text-right">{{ $tx->type === 'CR' ? number_format($tx->amount, 2) : '' }}</td>
-                    </tr> --}}
-                    @dump($accounts)
+                    </tr>
                 @endforeach
 
             </tbody>

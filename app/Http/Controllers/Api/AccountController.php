@@ -62,7 +62,7 @@ class AccountController extends Controller
         $end = new \DateTime(date('Y-M-j'));
         $end->add(new \DateInterval('P1M'));
 
-        $s = (int)$start->format('n');
+        $s = (int) $start->format('n');
 
         $crs = [];
         $drs = [];
@@ -111,7 +111,7 @@ class AccountController extends Controller
         return response()->json([
             'success' => true,
             'notification' => $account->notification,
-            "message" => 'Notification changed successfuly'
+            "message" => 'Notification changed successfully'
         ]);
     }
 
@@ -130,7 +130,7 @@ class AccountController extends Controller
         return response()->json([
             'success' => true,
             'notification' => $account->notification,
-            "message" => 'Current nottification status'
+            "message" => 'Current notification status'
         ]);
     }
 }
