@@ -70,7 +70,7 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    @if (config('app.tax.show'))
+                    @if (config('billing.tax.show'))
                         <tr>
                             <td class="text-right" colspan="4" style="font-weight:bold;">
                                 SUB-TOTAL
@@ -104,17 +104,17 @@
                     <ol>
                         <li>Go to Lipa Na M-PESA</li>
                         <li>Select Buy Goods</li>
-                        <li>Enter the Till Number <strong>{{ config('app.mpesa.buy_goods') }}</strong></li>
+                        <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
                         <li>Enter the amount ({{ config('billing.currency') }} {{ number_format($invoice->amount(), 2) }})
                         </li>
-                        <li>Enter Your PIN and confirm sending to <strong>{{ config('app.mpesa.name') }}</strong></li>
+                        <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong></li>
                     </ol>
                 @endif
                 <h4 class="text-uppercase">Cheque Payment</h4>
                 <p class="category">Make all cheques payable to <strong>{{ config('app.name') }}</strong>.
-                    @if (config('app.tax.vat.type') === 'inclusive')
+                    @if (config('billing.tax.vat.type') === 'inclusive')
                         <br>All prices inclusive of
-                        {{ config('app.vat.rate') }} VAT
+                        {{ config('billing.tax.vat.rate') }} VAT
                     @endif
                 </p>
             </div>

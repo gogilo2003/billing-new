@@ -20,31 +20,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Custom configuration for billing
-    |--------------------------------------------------------------------------
-    |
-    */
-
-    'phone' => env('BILLING_PHONE', ''),
-    'email' => env('BILLING_EMAIL', ''),
-    'address' => env('BILLING_ADDRESS', ''),
-    'mpesa' => [
-        'buy_goods' => env('BILLING_MPESA_BUY_GOODS', ''),
-        'name' => env('BILLING_MPESA_NAME')
-    ],
-    // 'tax' => [
-    //     'show' => env('BILLING_TAX_SHOW', FALSE),
-    //     'vat' => [
-    //         'rate' => env('BILLING_TAX_VAT_RATE', 0),
-    //         'type' => env(
-    //             'BILLING_TAX_VAT_TYPE',
-    //             'inclusive'
-    //         ),
-    //     ]
-    // ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
@@ -95,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------

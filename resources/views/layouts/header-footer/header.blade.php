@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style type="text/css">
         @import url('{{ asset('css/pdf.css') }}');
-
     </style>
 </head>
 
@@ -19,17 +18,17 @@
         <div class="text">
             <div class="contact">
                 <img src="{{ asset('images/icons/email.png') }}" alt="">
-                <span class="value">{{ config('app.email') }}</span>
+                <span class="value">{{ config('billing.email') }}</span>
                 <div style="clear: both"></div>
             </div>
             <div class="contact">
                 <img src="{{ asset('images/icons/phone.png') }}" alt="">
-                <span class="value">{{ config('app.phone') }}</span>
+                <span class="value">{{ config('billing.phone') }}</span>
                 <div style="clear: both"></div>
             </div>
             <div class="contact">
                 <img src="{{ asset('images/icons/map.png') }}" alt="">
-                <span class="value">{{ config('app.address') }}</span>
+                <span class="value">{{ config('billing.address') }}</span>
                 <div style="clear: both"></div>
             </div>
         </div>

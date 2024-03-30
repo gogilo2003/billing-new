@@ -1,5 +1,4 @@
-<div id="viewTransactionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
-    data-backdrop="static">
+<div id="viewTransactionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -43,9 +42,9 @@
                     <img src="data:image/png;base64,{{ file_get_contents(public_path('logo.txt')) }}" alt="logo"/>
                 </div>
                 <div class="address">
-                    <div class="email">{{ config('app.email') }}</div>
-                    <div class="phone">{{ config('app.phone') }}</div>
-                    <div class="postal_address">{{ config('app.address') }}</div>
+                    <div class="email">{{ config('billing.email') }}</div>
+                    <div class="phone">{{ config('billing.phone') }}</div>
+                    <div class="postal_address">{{ config('billing.address') }}</div>
                 </div>
                 <div class="text-center title">RECEIPT</div>
                 <div class="text-center receipt_number">
@@ -100,6 +99,5 @@
             max-height: 84vh;
             overflow-y: auto;
         }
-
     </style>
 @endpush

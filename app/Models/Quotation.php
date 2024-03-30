@@ -67,17 +67,17 @@ class Quotation extends Model
 
     public function subTotal()
     {
-        if (config('app.tax.vat.type') === 'inclusive')
-            return $this->amount() * (100 / (100 + (int)config('app.tax.vat.rate')));
+        if (config('billing.tax.vat.type') === 'inclusive')
+            return $this->amount() * (100 / (100 + (int) config('billing.tax.vat.rate')));
 
         return $this->amount();
     }
 
     public function tax()
     {
-        if (config('app.tax.vat.type') === 'inclusive')
-            return $this->amount() * ((int)config('app.tax.vat.rate') / (100 + (int)config('app.tax.vat.rate')));
+        if (config('billing.tax.vat.type') === 'inclusive')
+            return $this->amount() * ((int) config('billing.tax.vat.rate') / (100 + (int) config('billing.tax.vat.rate')));
 
-        return $this->amount() * ((int)config('app.tax.vat.rate') / 100);
+        return $this->amount() * ((int) config('billing.tax.vat.rate') / 100);
     }
 }
