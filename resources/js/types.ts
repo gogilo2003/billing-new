@@ -63,6 +63,14 @@ export interface iAccount {
     ]
 }
 
+export interface iInvoiceItem {
+    id?: number
+    particulars: string
+    quantity: number
+    price: number
+    editing?: boolean
+}
+
 export interface iInvoice {
     id: number
     name: string
@@ -70,5 +78,9 @@ export interface iInvoice {
     amount: number
     barcode: string
     qrcode: string
+    date: Date
+    account: number
     client: iClient
+    items: Array<iInvoiceItem>
 }
+

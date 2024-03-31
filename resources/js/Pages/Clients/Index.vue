@@ -49,8 +49,6 @@ const addClient = () => {
 }
 
 const editClient = (client) => {
-    console.log('edit');
-
     showClientDialog.value = true
     clientDialogTitle.value = "Edit Client"
     edit.value = true
@@ -225,8 +223,8 @@ const deleteClient = (id) => {
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="py-3 px-6 flex gap-3 md:gap-6 items-center">
                         <div class="flex-1">
-                            <TextInput type="search" aria-placeholder="Search..." placeholder="Search..." v-model="search"
-                                class="w-full max-w-96" />
+                            <TextInput type="search" aria-placeholder="Search..." placeholder="Search..."
+                                v-model="search" class="w-full max-w-96" />
                         </div>
                         <div class="flex-none flex gap-2">
                             <SecondaryButton @click="downloadClients"
@@ -246,11 +244,13 @@ const deleteClient = (id) => {
                             <div class="flex-1">
                                 <div class="font-semibold uppercase" v-text="client.name"></div>
                                 <div class="flex flex-col md:flex-row md:divide-x text-xs text-slate-600">
-                                    <div v-if="client.phone" class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
+                                    <div v-if="client.phone"
+                                        class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
                                         <span class="font-bold">Phone:</span>
                                         <span v-text="client?.phone"></span>
                                     </div>
-                                    <div v-if="client.email" class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
+                                    <div v-if="client.email"
+                                        class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
                                         <span class="font-bold">Email:</span>
                                         <span v-text="client?.email"></span>
                                     </div>

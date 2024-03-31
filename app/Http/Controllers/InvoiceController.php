@@ -12,9 +12,12 @@ use App\Models\Client;
 use App\Models\Account;
 use App\Models\Invoice;
 use App\Models\Delivery;
+use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
+use App\Http\Requests\StoreInvoiceRequest;
+use App\Http\Requests\UpdateInvoiceRequest;
 
 class InvoiceController extends Controller
 {
@@ -39,13 +42,16 @@ class InvoiceController extends Controller
             })
             ->paginate(10);
 
-        $accounts = Account::with(['client' => function ($query) {
-            $query->orderBy('name');
-        }])
-            ->get()->map(fn ($item) => [
+        $accounts = Account::with('client')
+            ->get()->map(fn($item) => [
                 "id" => $item->id,
-                "name" => sprintf('%s - %s', $item->client->name, $item->name),
-            ]);
+                // "name" => sprintf('%s - %s', $item->client->name, $item->name),
+                "client" => $item->client->name,
+                "name" => $item->name,
+            ])
+            ->sortBy(function ($item) {
+                return [$item['client'], $item['name']];
+            })->values()->all();
 
         // return view('invoices.index', compact('invoices', 'client'));
         return Inertia::render('Invoices/Index', [
@@ -57,6 +63,8 @@ class InvoiceController extends Controller
                     "amount" => $item->amount(),
                     "barcode" => $item->barcode,
                     "qrcode" => $item->qrcode,
+                    "date" => $item->created_at,
+                    "account" => $item->account->id,
                     "client" => [
                         "id" => $item->account->client->id,
                         "name" => $item->account->client->name,
@@ -64,21 +72,22 @@ class InvoiceController extends Controller
                         "email" => $item->account->client->email,
                         "postal_address" => ($item->account->client->box_no || $item->account->client->post_code || $item->account->client->town) ? sprintf(
                             "P.O. Box %s %s %s",
-                            trim(ltrim(
-                                Str::lower($item->account->client->box_no),
-                                'p.o. box'
-                            )),
+                            trim(
+                                ltrim(
+                                    Str::lower($item->account->client->box_no),
+                                    'p.o. box'
+                                )
+                            ),
                             $item->account->client->post_code ? ' - ' . $item->account->client->post_code : '',
                             $item->account->client->town ? ', ' . $item->account->client->town : ''
                         ) : '',
                         "location" => $item->account->client->address,
                     ],
-                    "items" => $item->items->map(fn ($item) => [
+                    "items" => $item->items->map(fn($item) => [
                         "id" => $item->id,
                         "particulars" => $item->particulars,
                         "quantity" => $item->quantity,
                         "price" => $item->price,
-                        "total" => $item->price * $item->quantity,
                     ]),
                 ];
             }),
@@ -100,50 +109,65 @@ class InvoiceController extends Controller
         return view('invoices.new', compact('client'));
     }
 
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
-        // dd($request->all());
-
-        $validator = Validator::make($request->all(), [
-            'account'    => 'required|integer',
-            'name'        => 'required',
-            'details'    => 'required|min:1'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors($validator)
-                ->with('global-warning', 'Some fields failed validation');
-        }
 
         $account = Account::find($request->input('account'));
 
         $invoice = new Invoice;
 
-        $invoice->name         = $request->input('name');
+        $invoice->name = $request->input('name');
         $invoice->client_id = $account->client_id;
         $invoice->account_id = $account->id;
 
         $invoice->save();
 
-        foreach ($request->input('details') as $detail) {
+        foreach ($request->input('items') as $item) {
 
-            $item = new InvoiceDetail();
+            $invoiceItem = new InvoiceDetail();
 
-            $item->particulars     = $detail['particulars'];
-            $item->price         = $detail['price'];
-            $item->quantity     = $detail['quantity'];
+            $invoiceItem->particulars = $item['particulars'];
+            $invoiceItem->price = $item['price'];
+            $invoiceItem->quantity = $item['quantity'];
 
-            $invoice->items()->save($item);
+            $invoice->items()->save($invoiceItem);
         }
 
-        AccountController::transact($account, $invoice->name, 'DR', $invoice->amount());
+        AccountController::transact($account, $invoice->name, 'DR', $invoice->amount(), null, $invoice->id);
 
         return redirect()
-            ->route('invoices-view', $invoice->id)
-            ->with('global-success', 'Invoice Created');
+            ->back()
+            ->with('success', 'Invoice Created');
+
+    }
+    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+    {
+        $account = Account::find($request->account);
+
+        $invoice->name = $request->input('name');
+        $invoice->client_id = $account->client_id;
+        $invoice->account_id = $account->id;
+
+        $invoice->save();
+
+        foreach ($request->input('items') as $item) {
+
+            $invoiceItem = isset($item["id"]) ? InvoiceDetail::find($item["id"]) : new InvoiceDetail();
+
+            $invoiceItem->particulars = $item['particulars'];
+            $invoiceItem->price = $item['price'];
+            $invoiceItem->quantity = $item['quantity'];
+
+            $invoice->items()->save($invoiceItem);
+        }
+
+        $transaction = Transaction::where('invoice_id', $invoice->id)->where('type', 'DR')->first();
+        AccountController::transact($account, $invoice->name, 'DR', $invoice->amount(), null, $invoice->id ?? null, $transaction->id ?? null);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Invoice Updated');
+
     }
 
     public function show($id)

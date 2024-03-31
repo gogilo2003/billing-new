@@ -1,48 +1,52 @@
 <script lang="ts" setup>
-import { iInvoice } from '@/types';
+import { iInvoice, iInvoiceItem } from '@/types';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
-import Icon from '../../Components/Icons/Icon.vue'
+import Icon from '../../Components/Icons/Icon.vue';
 import TextInput from '../../Components/TextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import Modal from '../../Components/Modal.vue';
 import InputLabel from '../../Components/InputLabel.vue';
 import InputError from '../../Components/InputError.vue';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
-import { computed, watch } from 'vue';
+import { computed, watch, ref, onMounted } from 'vue';
+import InvoiceItems from './InvoiceItems.vue';
 
 const props = defineProps<{
     invoice: iInvoice
     show: boolean
-    edit: { type: boolean, default: false }
+    edit: boolean
 }>()
 
 const emits = defineEmits(['close'])
 
 const swal = Swal.mixin({
     customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
+        confirmButton: "inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150",
+        cancelButton: "btn btn-outline-secondary"
     },
     buttonsStyling: false
 });
 
 const form = useForm({
-    "id": null,
-    "client": null,
-    "name": null,
+    id: null,
+    account: null,
+    ref: null,
+    name: null,
+    items: Array<iInvoiceItem>,
 })
 
 const accounts = computed(() => usePage().props.accounts)
 const invoiceDialogTitle = computed(() => props.edit ? "Edit Invoice" : "New Invoice")
-const clients = computed(() => usePage().props.clients)
+// const clients = computed(() => usePage().props.clients)
 
 const close = () => {
     form.id = null
     form.name = null
-    form.client = null
+    form.account = null
+    form.items = null
     emits('close')
 }
 
@@ -56,6 +60,7 @@ const submit = () => {
                     icon: 'success',
                     text: usePage().props?.notification?.success
                 })
+                cancel()
             },
             onError: () => {
                 swal.fire({
@@ -72,6 +77,7 @@ const submit = () => {
                     icon: 'success',
                     text: usePage().props?.notification?.success
                 })
+                cancel()
             },
             onError: () => {
                 Swal.fire({
@@ -83,14 +89,33 @@ const submit = () => {
     }
 }
 
-watch(() => props.invoice, (value) => {
-    form.id = value.id
-    form.client = value.client.id
-    form.name = value.name
+const cancel = () => {
+    emits("close")
+    form.id = null
+    form.account = null
+    form.name = null
+    form.items = null
+}
+
+onMounted(() => {
+    form.id = props.invoice?.id
+    form.account = props.invoice?.account
+    form.name = props.invoice?.name
+    form.items = props.invoice?.items ?? []
+    console.log("onMounted Invoice: ", form.items);
+
 })
+
+watch(() => props.invoice, (value) => {
+    form.id = props.invoice?.id
+    form.account = props.invoice?.account
+    form.name = props.invoice?.name
+    form.items = props.invoice?.items ?? []
+})
+
 </script>
 <template>
-    <Modal :show="show">
+    <Modal :show="show" max-width="4xl">
         <div
             class="flex items-center justify-between px-6 py-3 bg-gradient-to-br from-primary-default via-secondary-default to-primary-default">
             <div class="text-gray-50 font-semibold text-lg" v-text="invoiceDialogTitle"></div>
@@ -99,18 +124,35 @@ watch(() => props.invoice, (value) => {
             </div>
         </div>
         <form @submit.prevent="submit">
-            <pre v-text="accounts"></pre>
             <div class="px-6 py-3">
-                <div class="mb-4">
-                    <InputLabel value="Client" />
-                    <!-- <TextInput class="w-full" v-model="form.client" /> -->
-                    <vSelect v-model="form.client" label="name" :options="clients" :reduce="client => client.id" />
-                    <InputError :message="form.errors.client" />
+                <div class="mb-4 grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-8">
+                    <div class="md:col-span-3">
+                        <InputLabel value="Account" />
+                        <vSelect class="h-[2.6rem]" v-model="form.account" label="client" :options="accounts"
+                            :reduce="account => account.id">
+                            <template v-slot:option="{ client, name }">
+                                <div class="py-2">
+                                    <div class="uppercase" v-text="client"></div>
+                                    <div class="text-sm font-light text-gray-700" v-text="name"></div>
+                                </div>
+                            </template>
+                        </vSelect>
+                        <InputError :message="form.errors.account" />
+                    </div>
+                    <div class="col-span-2">
+                        <InputLabel value="REF(LPO Number/LSO Number/PO Number)" />
+                        <TextInput class="w-full" v-model="form.ref" />
+                        <InputError :message="form.errors.ref" />
+                    </div>
                 </div>
                 <div class="mb-4">
                     <InputLabel value="Invoice Name" />
                     <TextInput class="w-full" v-model="form.name" />
                     <InputError :message="form.errors.name" />
+                </div>
+                <div class="mb-4">
+                    <InputLabel value="Invoice Details" />
+                    <InvoiceItems v-model:value="form.items" />
                 </div>
             </div>
             <div class="px-6 py-3 flex justify-between items-center">
@@ -124,3 +166,4 @@ watch(() => props.invoice, (value) => {
         </form>
     </Modal>
 </template>
+<style scoped></style>

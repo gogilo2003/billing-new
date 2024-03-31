@@ -28,7 +28,7 @@ class QuotationController extends Controller
             ->orderBy('created_at', 'DESC')
             ->paginate(5);
 
-        return QuotationResource::collection($quotations);
+        // return QuotationResource::collection($quotations);
     }
 
     /**
@@ -45,7 +45,8 @@ class QuotationController extends Controller
             $request->validity,
             $request->items,
             $request->description
-        ));
+        )
+        );
         return $this->storeSuccess('Quotation stored', compact('quotation'));
     }
 
@@ -78,7 +79,8 @@ class QuotationController extends Controller
             $request->validity,
             $request->items,
             $request->description
-        ));
+        )
+        );
         return $this->updateSuccess("Quotation updated", compact('quotation'));
     }
 

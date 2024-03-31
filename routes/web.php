@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\ProductCategoryController;
 
@@ -71,6 +72,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('edit/{id}', [InvoiceController::class, 'edit'])->name('-edit');
         Route::get('view/{id}', [InvoiceController::class, 'show'])->name('-view');
         Route::post('create', [InvoiceController::class, 'store'])->name('-store');
+        Route::patch('{invoice}', [InvoiceController::class, 'update'])->name('-update');
         Route::post('merge', [InvoiceController::class, 'postMerge'])->name('-merge-post');
         Route::get('download/{id}', [InvoiceController::class, 'downloadInvoice'])->name('-download');
         Route::get('delivery/{id}', [InvoiceController::class, 'downloadDelivery'])->name('-delivery');
@@ -114,9 +116,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     })->name('domains');
 
     Route::prefix('quotations')->name('quotations')->group(function () {
-        Route::get('', function () {
-            return view('quotations.index');
-        })->name('');
+        Route::get('', [QuotationController::class, 'index']);
+        Route::post('', [QuotationController::class, 'store'])->name('-store');
+        Route::patch('{quotation}', [QuotationController::class, '-update'])->name('-update');
+        Route::delete('{quotation}', [QuotationController::class, '-destroy'])->name('-destroy');
         Route::get("download/{id}", function (int $id, QuotationService $service) {
             return $service->download($id)->download('Quotation#' . str_pad($id, 4, '0', 0) . '.pdf');
         })->name('-download');

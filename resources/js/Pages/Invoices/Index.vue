@@ -98,7 +98,7 @@ const closeView = () => {
 }
 </script>
 <template>
-    <Invoice :show="showInvoiceDialog" :account="invoice" :edit="edit" @close="close" />
+    <Invoice :show="showInvoiceDialog" :invoice="invoice" :edit="edit" @close="close" />
     <View :show="showViewDialog" :invoice="invoice" @close="closeView" />
     <AppLayout title="Invoices">
         <div class="py-2">
@@ -106,8 +106,8 @@ const closeView = () => {
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="py-3 px-6 flex gap-3 md:gap-6 items-center">
                         <div class="flex-1">
-                            <TextInput type="search" aria-placeholder="Search..." placeholder="Search..." v-model="search"
-                                class="w-full max-w-96" />
+                            <TextInput type="search" aria-placeholder="Search..." placeholder="Search..."
+                                v-model="search" class="w-full max-w-96" />
                         </div>
                         <div class="flex-none flex gap-2">
                             <SecondaryButton @click="addInvoice"
@@ -126,7 +126,8 @@ const closeView = () => {
                                         <span class="font-bold">Amount</span>
                                         <span v-text="formatCurrency(invoice?.amount)"></span>
                                     </div>
-                                    <div v-if="invoice.phone" class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
+                                    <div v-if="invoice.phone"
+                                        class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
                                         <span class="font-bold">Phone:</span>
                                         <span v-text="invoice?.phone"></span>
                                     </div>
