@@ -11,7 +11,7 @@ class UpdateQuotationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateQuotationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|integer|exists:quotations,id',
+            'client' => 'required|integer|exists:clients,id',
+            'validity' => 'required|integer|min:1',
+            'items' => 'required|array|min:1',
+            'items.*.id' => 'nullable|exists:quotation_items,id',
+            'items.*.particulars' => 'required',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.price' => 'required|numeric|min:1',
         ];
     }
 }

@@ -27,25 +27,15 @@ class Invoice extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function subTotal()
-    {
-        if (config('billing.tax.vat.type') === 'inclusive')
-            return $this->amount() * (100 / (100 + (int)config('billing.tax.vat.rate')));
-
-        return $this->amount();
-    }
-
-    public function tax()
-    {
-        if (config('billing.tax.vat.type') === 'inclusive')
-            return $this->amount() * ((int)config('billing.tax.vat.rate') / (100 + (int)config('billing.tax.vat.rate')));
-
-        return $this->amount() * ((int)config('billing.tax.vat.rate') / 100);
-    }
-
     public function amount()
     {
+        return $this->subTotal() + $this->tax();
+    }
+
+    public function subTotal()
+    {
         $amount = 0;
+        $this->load('items');
         foreach ($this->items as $item) {
             $amount += $item->amount();
         }
@@ -53,12 +43,15 @@ class Invoice extends Model
         return $amount;
     }
 
-    public function grandTotal()
+    public function tax()
     {
-        if (config('billing.tax.vat.type') === 'inclusive')
-            return $this->amount();
+        $amount = 0;
+        $this->load('items');
+        foreach ($this->items as $item) {
+            $amount += $item->amount();
+        }
 
-        return $this->amount() + $this->tax();
+        return $amount * ((int) config('billing.tax.vat.rate') / 100);
     }
 
     public function delivery()
@@ -109,6 +102,14 @@ class Invoice extends Model
             ->setLabelFontSize(16)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
 
-        return  'data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate();
+        return 'data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate();
+    }
+
+    function getTaxType()
+    {
+        if ($this->tax_type) {
+            return $this->tax_type;
+        }
+        return config('billing.tax.vat.type');
     }
 }

@@ -11,7 +11,7 @@ class StoreQuotationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreQuotationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'client' => 'required|integer|exists:clients,id',
+            'description' => 'nullable|string',
+            'validity' => 'required|integer|min:1',
+            'items' => 'required|array|min:1',
+            'items.*.particulars' => 'required',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.price' => 'required|numeric|min:1',
         ];
     }
 }

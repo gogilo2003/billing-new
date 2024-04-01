@@ -94,7 +94,7 @@
                             TOTAL
                         </td>
                         <td style="font-weight: bold; font-size: 1.1em; border-bottom: 1px double #333" class="text-right">
-                            {{ config('billing.currency') }} {{ number_format($invoice->grandTotal(), 2) }}</td>
+                            {{ config('billing.currency') }} {{ number_format($invoice->amount(), 2) }}</td>
                     </tr>
                 </tfoot>
             </table>

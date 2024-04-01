@@ -39,13 +39,14 @@ class QuotationController extends Controller
      */
     public function store(QuotationStoreRequest $request, QuotationService $service)
     {
-        $quotation = new QuotationResource($service->store(
-            $request->client_id,
-            $request->user()->id,
-            $request->validity,
-            $request->items,
-            $request->description
-        )
+        $quotation = new QuotationResource(
+            $service->store(
+                $request->client_id,
+                $request->user()->id,
+                $request->validity,
+                $request->items,
+                $request->description
+            )
         );
         return $this->storeSuccess('Quotation stored', compact('quotation'));
     }
@@ -72,14 +73,16 @@ class QuotationController extends Controller
      */
     public function update(QuotationUpdateRequest $request, QuotationService $service)
     {
-        $quotation = new QuotationResource($service->update(
-            $request->id,
-            $request->client_id,
-            $request->user()->id,
-            $request->validity,
-            $request->items,
-            $request->description
-        )
+        $quotation = Quotation::findOrFail($request->id);
+        $quotation = new QuotationResource(
+            $service->update(
+                $quotation,
+                $request->client_id,
+                $request->user()->id,
+                $request->validity,
+                $request->items,
+                $request->description
+            )
         );
         return $this->updateSuccess("Quotation updated", compact('quotation'));
     }

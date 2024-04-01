@@ -118,8 +118,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::prefix('quotations')->name('quotations')->group(function () {
         Route::get('', [QuotationController::class, 'index']);
         Route::post('', [QuotationController::class, 'store'])->name('-store');
-        Route::patch('{quotation}', [QuotationController::class, '-update'])->name('-update');
-        Route::delete('{quotation}', [QuotationController::class, '-destroy'])->name('-destroy');
+        Route::patch('{quotation}', [QuotationController::class, 'update'])->name('-update');
+        Route::delete('{quotation}', [QuotationController::class, 'destroy'])->name('-destroy');
         Route::get("download/{id}", function (int $id, QuotationService $service) {
             return $service->download($id)->download('Quotation#' . str_pad($id, 4, '0', 0) . '.pdf');
         })->name('-download');

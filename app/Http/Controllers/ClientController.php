@@ -96,9 +96,9 @@ class ClientController extends Controller
             $request->address
         );
 
-        if ($request->wantsJson()) {
-            return $this->updateSuccess("Client has been updated", ['client' => ClientResource::make($client)]);
-        }
+        // if ($request->wantsJson()) {
+        //     return $this->updateSuccess("Client has been updated", ['client' => ClientResource::make($client)]);
+        // }
         return redirect()
             ->back()
             ->with('success', 'Client has been updated');
