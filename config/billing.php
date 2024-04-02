@@ -8,7 +8,6 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-
     'phone' => env('BILLING_PHONE', ''),
     'email' => env('BILLING_EMAIL', ''),
     'address' => env('BILLING_ADDRESS', ''),

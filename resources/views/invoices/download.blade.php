@@ -6,13 +6,23 @@
 
 @section('content')
     <div style="text-align: center; margin-bottom: 1.5rem">
-        <h4 class="text-uppercase text-info mb-0 mt-3" style="color: #116AC3">Invoice Number</h4>
-        <div style="margin-bottom:0px">#{{ $invoice->id }}</div>
-        <div class="barcode"><img src="{{ $invoice->barcode }}" /></div>
-        <h4 class="text-uppercase text-info mb-0 mt-3" style="color: #116AC3">
-            Date Issued
-        </h4>
-        <div class="date">{{ date_create($invoice->created_at)->format('D, j-M-Y') }}</div>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <h4 class="text-uppercase text-info mb-0 mt-3" style="color: #116AC3">Invoice Number</h4>
+                    <div style="margin-bottom:0px">#{{ $invoice->id }}</div>
+                </td>
+                <td>
+                    <div class="barcode"><img src="{{ $invoice->qrcode }}" /></div>
+                </td>
+                <td>
+                    <h4 class="text-uppercase text-info mb-0 mt-3" style="color: #116AC3">
+                        Date Issued
+                    </h4>
+                    <div class="date">{{ date_create($invoice->created_at)->format('D, j-M-Y') }}</div>
+                </td>
+            </tr>
+        </table>
     </div>
     <div>
         <div>
