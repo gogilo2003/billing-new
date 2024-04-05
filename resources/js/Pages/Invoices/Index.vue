@@ -37,7 +37,11 @@ const swal = Swal.mixin({
 });
 
 watch(() => search.value, debounce(value => {
-    router.get(route('invoices'), { page: props?.invoices?.current_page, search: value })
+    router.get(route('invoices'), { page: props?.invoices?.current_page, search: value }, {
+        preserveScroll: true,
+        preserveState: true,
+        only: ['searchVal', 'invoices']
+    })
 }, 500))
 
 

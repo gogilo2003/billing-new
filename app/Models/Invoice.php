@@ -45,13 +45,12 @@ class Invoice extends Model
 
     public function tax()
     {
-        $amount = 0;
-        $this->load('items');
-        foreach ($this->items as $item) {
-            $amount += $item->amount();
+
+        if (config('billing.tax.show')) {
+            return $this->subTotal() * ((int) config('billing.tax.vat.rate') / 100);
         }
 
-        return $amount * ((int) config('billing.tax.vat.rate') / 100);
+        return 0;
     }
 
     public function delivery()
@@ -98,7 +97,7 @@ class Invoice extends Model
             ->setErrorCorrection('high')
             ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
             ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-            ->setLabel('Scan Qr Code')
+            ->setLabel(null)
             ->setLabelFontSize(16)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
 

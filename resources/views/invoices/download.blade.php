@@ -111,14 +111,31 @@
             <div class="invoice-footer">
                 @if (config('billing.mpesa'))
                     <h4 class="text-uppercase">MPESA</h4>
-                    <ol>
-                        <li>Go to Lipa Na M-PESA</li>
-                        <li>Select Buy Goods</li>
-                        <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
-                        <li>Enter the amount ({{ config('billing.currency') }} {{ number_format($invoice->amount(), 2) }})
-                        </li>
-                        <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong></li>
-                    </ol>
+                    @if (config('billing.mpesa.buy_goods'))
+                        <ol>
+                            <li>Go to Lipa Na M-PESA</li>
+                            <li>Select Buy Goods</li>
+                            <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
+                            <li>Enter the amount ({{ config('billing.currency') }}
+                                {{ number_format($invoice->amount(), 2) }})
+                            </li>
+                            <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong>
+                            </li>
+                        </ol>
+                    @endif
+                    @if (config('billing.mpesa.pay_bill'))
+                        <ol>
+                            <li>Go to Lipa Na M-PESA</li>
+                            <li>Select Pay Bill</li>
+                            <li>Enter the Business No. <strong>{{ config('billing.mpesa.pay_bill') }}</strong></li>
+                            <li>Enter Account No. <strong>{{ $invoice->id }}</strong></li>
+                            <li>Enter the amount ({{ config('billing.currency') }}
+                                {{ number_format($invoice->amount(), 2) }})
+                            </li>
+                            <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong>
+                            </li>
+                        </ol>
+                    @endif
                 @endif
                 <h4 class="text-uppercase">Cheque Payment</h4>
                 <p class="category">Make all cheques payable to <strong>{{ config('app.name') }}</strong>.
@@ -145,6 +162,17 @@
 
         .text-uppercase {
             text-transform: uppercase;
+        }
+
+        .barcode {
+            width: 8rem;
+            margin: 0 auto;
+        }
+
+        .barcode>img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
         }
     </style>
 @endpush

@@ -18,8 +18,10 @@ class InvoiceDetail extends Model
 
     function getPriceAttribute($value)
     {
-        if ($this->invoice->getTaxType() === 'inclusive') {
-            return $value * (100 / (100 + (int) config('billing.tax.vat.rate')));
+        if (config("billing.tax.show")) {
+            if ($this->invoice->getTaxType() === 'inclusive') {
+                return $value * (100 / (100 + (int) config('billing.tax.vat.rate')));
+            }
         }
 
         return $value;

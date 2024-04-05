@@ -38,7 +38,11 @@ const edit = ref(false)
 const clientDialogTitle = ref("New Client")
 
 watch(() => search.value, debounce(value => {
-    router.get(route('clients'), { page: props.clients.current_page, search: search.value })
+    router.get(route('clients'), { page: props.clients.current_page, search: search.value }, {
+        preserveScroll: true,
+        preserveState: true,
+        only: ['searchVal', 'clients']
+    })
 }, 500))
 
 
