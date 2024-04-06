@@ -73,7 +73,6 @@ class Invoice extends Model
         return $this->belongsTo(Client::class);
     }
 
-
     public function getBarcodeAttribute()
     {
         $barcode = new BarcodeGenerator();
@@ -110,5 +109,21 @@ class Invoice extends Model
             return $this->tax_type;
         }
         return config('billing.tax.vat.type');
+    }
+
+    function paid()
+    {
+        $amount = 0;
+        foreach ($this->transactions() as $key => $transaction) {
+            if ($transaction->type == 'cr') {
+                $amount += $transaction->amount;
+            }
+        }
+        return $amount;
+    }
+
+    function balance()
+    {
+        return $this->amount() - $this->paid();
     }
 }

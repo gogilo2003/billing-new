@@ -60,7 +60,7 @@ const links = [
 
 </script>
 <template>
-    <div class="relative block flex-none transition[width] duration-500" :class="{ 'w-80': toggle, 'w-0': !toggle }">
+    <div class="relative block flex-none transition[width] duration-500" :class="{ 'w-64': toggle, 'w-0': !toggle }">
         <div
             class="sticky top-[4.6rem] overflow-hidden min-h-[calc(100svh_-_8rem)] ml-6 my-2 bg-gradient-to-b to-secondary-default from-primary-default rounded-lg">
             <div class="px-3 py-1">

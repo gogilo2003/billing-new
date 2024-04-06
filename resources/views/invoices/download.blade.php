@@ -85,16 +85,14 @@
                             <td class="text-right" colspan="4" style="font-weight:bold;">
                                 SUB-TOTAL
                             </td>
-                            <td style="font-weight: bold; font-size: 1.1em; border-bottom: 1px double #333"
-                                class="text-right">{{ config('billing.currency') }}
+                            <td class="text-right">{{ config('billing.currency') }}
                                 {{ number_format($invoice->subTotal(), 2) }}</td>
                         </tr>
                         <tr>
                             <td class="text-right" colspan="4" style="font-weight:bold;">
                                 TAX
                             </td>
-                            <td style="font-weight: bold; font-size: 1.1em; border-bottom: 1px double #333"
-                                class="text-right">{{ config('billing.currency') }}
+                            <td class="text-right total">{{ config('billing.currency') }}
                                 {{ number_format($invoice->tax(), 2) }}
                             </td>
                         </tr>
@@ -103,8 +101,22 @@
                         <td class="text-right" colspan="4" style="font-weight:bold;">
                             TOTAL
                         </td>
-                        <td style="font-weight: bold; font-size: 1.1em; border-bottom: 1px double #333" class="text-right">
+                        <td class="text-right total">
                             {{ config('billing.currency') }} {{ number_format($invoice->amount(), 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="4" style="font-weight:bold;">
+                            Paid
+                        </td>
+                        <td class="text-right total">
+                            {{ config('billing.currency') }} {{ number_format($invoice->paid(), 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="4" style="font-weight:bold;">
+                            Balance Due
+                        </td>
+                        <td class="text-right total">
+                            {{ config('billing.currency') }} {{ number_format($invoice->balance(), 2) }}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -173,6 +185,12 @@
             width: 100%;
             height: auto;
             object-fit: cover;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 0.8em;
+            border-bottom: 1px solid #333;
         }
     </style>
 @endpush
