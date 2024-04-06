@@ -2,10 +2,17 @@
 import AppLayout from '../Layouts/AppLayout.vue';
 import TransactionsSummary from '../Components/TransactionsSummary.vue'
 import MonthlyTransactions from '../Components/MonthlyTransactions.vue'
+import { ChartDataset } from 'chart.js';
 
 defineProps<{
-    months: Object,
-    summary: Object,
+    months: {
+        labels: string[]
+        series: ChartDataset[]
+    },
+    summary: {
+        labels: string[]
+        series: ChartDataset[]
+    },
 }>()
 </script>
 

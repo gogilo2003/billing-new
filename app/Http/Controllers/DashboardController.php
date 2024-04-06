@@ -50,7 +50,7 @@ class DashboardController extends Controller
         // $lBalance = $pbalance . '% (' . number_format($balance, 2) . ')';
 
         $data = array(
-            'labels' => [$pcr, $pdr, $pbalance],
+            'labels' => ["Paid", "Invoice", "Balance"],
             'series' => [$cr, $dr, $balance]
         );
         return $data;
@@ -93,7 +93,20 @@ class DashboardController extends Controller
 
         $data = array(
             'labels' => $labels,
-            'series' => [$crs, $drs, $bls],
+            'series' => [
+                [
+                    "label" => "Paid",
+                    "data" => $crs,
+                ],
+                [
+                    "label" => "Invoice",
+                    "data" => $drs,
+                ],
+                [
+                    "label" => "Balance",
+                    "data" => $bls,
+                ]
+            ],
         );
 
         return $data;
