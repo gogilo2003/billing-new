@@ -36,6 +36,5 @@ onMounted(() => {
     <div class="text-xl font-extralight capitalize">Transactions Summary</div>
     <div class="text-sm font-light capitalize">The combined all time total transactions</div>
     <div class="w-full"><canvas ref="summary"></canvas></div>
-    <pre v-text="data"></pre>
     <div class="text-sm font-light capitalize">All time transactions</div>
 </template>

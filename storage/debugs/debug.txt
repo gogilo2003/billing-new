@@ -1,0 +1,1083 @@
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'NJQ0IRAVDG)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+  1 => 'NLP3XJOUTX)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'CO6ZBBRSE)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OD489N5F2E)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OD86CFVU1W)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'ODC6FHK0UY)',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OCO6ZBBRSE)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'ODU9U7IDDN)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'ODU1U7I3UD/ODU9U7IDDN)',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OEB44DMAB4)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OEI9AQ20JH)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OEI3AQ2GVD)',
+)
+
+array (
+  0 => 'MPESA',
+  1 => 'OG30GFCRPK)',
+)
+
+array (
+  0 => 'Cheque',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'ODU1U7I3UD/ODU9U7IDDN)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'ODU9U7IDDN)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OFA1U1VG17)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OFO27BK2VQ)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Mpesa',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OE64ZDE9RG)',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'NA',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'NA',
+)
+
+array (
+  0 => 'NA',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OH65DIS50V)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OH75EZEA1V)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OHP0XHY5J2 )',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OIU315Z7UZ)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OJC4FSG3WA)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OJE2H92KTK)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OJE9H94HIJ)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OJE0H9MG4M, OJE3HH7F0R)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OJF6IAX4O2)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OJR8VEL476)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OK263K1XK4)',
+)
+
+array (
+  0 => 'Mpesa',
+  1 => 'OKA8DSPJHG)',
+)
+
+array (
+  0 => 'Mpesa',
+  1 => 'OK709IUX5K)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OKH4L8U5LY)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OKH9KWA95D)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OKK4OG1BJI)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OKJ1NM0D35)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OKM3R360FR)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OKS4YD2ZVY)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OL92CYU750)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'OLC5GWZTOJ)',
+)
+
+array (
+  0 => 'Mpesa',
+  1 => 'OKS0Y6NX0Y)',
+)
+
+array (
+  0 => 'Mpesa',
+  1 => 'OKS2Y6PI0O)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PA74E9V93I)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PA74E5GMHK)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PAE4LRNECC)',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cheque ',
+  1 => '00284)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PCB2KM8DXG)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PDR1BCDBSB)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PGF7CTWWKR)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PFP2JE281I)',
+)
+
+array (
+  0 => 'NA',
+)
+
+array (
+  0 => 'NA',
+)
+
+array (
+  0 => 'Cheque',
+)
+
+array (
+  0 => 'NA',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PGF4D82IQW)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PGS9VFJKZJ)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PGM8N78XPW)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PL93UN9Z01)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PLT3URJH55)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'PIE1WIM6FD)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QAV8FFM0SS)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QBP9PRWQTF)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QBR5T27ESF, QBS6W3POR0)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QCM5420W61)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QA93DQBS3H)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QD40T9NW4I)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QDB67TG19E)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QCN45EFBYK)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QDL2QUY8YA)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QER2O5UYM2)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QER5OTANRH)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QF13YDHP0J)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QF84D7L4RW)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QFS3IB7NF9)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QH47MUVV6R)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QJR2OID0NO)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'QKB0PKF0Q4)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RBM08BB2EO)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'Cheque',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RDC5ZEXEHR)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RDO3X5R2W9)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RE24IGI6TM)',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RER7J041KX)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RF62DSGM76',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RG67T9L03Z)',
+)
+
+array (
+  0 => 'Cheque',
+)
+
+array (
+  0 => 'Cash',
+)
+
+array (
+  0 => 'Cheque',
+)
+
+array (
+  0 => 'MPESA',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RI633Z07RB)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RJ58LJD2VM)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RKM33D8C9D)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RKP4C1GOJC)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RL68C40XZE)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RL70H0NZ2S)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RLH2E40UL8)',
+)
+
+array (
+  0 => 'MPesa',
+  1 => 'RLU6MSPYLG)',
+)
+

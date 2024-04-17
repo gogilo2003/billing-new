@@ -90,13 +90,11 @@ class Quotation extends Model
 
     public function tax()
     {
-        $amount = 0;
-        $this->load('items');
-        foreach ($this->items as $item) {
-            $amount += $item->amount();
+        if (config('billing.tax.show')) {
+            return $this->subTotal() * ((int) config('billing.tax.vat.rate') / 100);
         }
 
-        return $amount * ((int) config('billing.tax.vat.rate') / 100);
+        return 0;
     }
 
     function getTaxType()

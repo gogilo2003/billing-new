@@ -84,12 +84,15 @@ export interface iInvoice {
     name: string
     ref: string
     amount: number
+    paid: number
+    balance: number
     barcode: string
     qrcode: string
     date: Date
     account: number
     client: iClient
     items: Array<iInvoiceItem>
+    receipts: Array<iReceipt>
 }
 export interface iQuotationItem {
     id?: number
@@ -114,3 +117,12 @@ export interface iQuotation {
     date?: Date
     items?: Array<iQuotationItem>
 }
+export interface iReceipt {
+    id: number | null;
+    particulars: string;
+    method: string;
+    amount: number | null;
+    transaction_ref: string | null;
+    date: Date | null;
+}
+

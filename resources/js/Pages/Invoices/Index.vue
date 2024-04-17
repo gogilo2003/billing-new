@@ -13,6 +13,8 @@ import 'vue-select/dist/vue-select.css';
 import { iInvoice } from '../../types'
 import Invoice from "./Invoice.vue";
 import View from "./View.vue";
+import Pay from "./Pay.vue";
+import Receipts from "./Receipts.vue";
 
 const props = defineProps({
     invoices: Object,
@@ -24,6 +26,8 @@ const props = defineProps({
 const search = ref(props.searchVal)
 const showInvoiceDialog = ref(false)
 const showViewDialog = ref(false)
+const showPayDialog = ref(false)
+const showReceiptsDialog = ref(false)
 const edit = ref(false)
 const invoice = ref()
 
@@ -58,6 +62,16 @@ const editInvoice = (INVOICE: iInvoice) => {
 
 const viewInvoice = (INVOICE: iInvoice) => {
     showViewDialog.value = true
+    invoice.value = INVOICE
+}
+
+const payInvoice = (INVOICE: iInvoice) => {
+    showPayDialog.value = true
+    invoice.value = INVOICE
+}
+
+const showReceipts = (INVOICE: iInvoice) => {
+    showReceiptsDialog.value = true
     invoice.value = INVOICE
 }
 
@@ -100,10 +114,20 @@ const close = () => {
 const closeView = () => {
     showViewDialog.value = false
 }
+
+const closePay = () => {
+    showPayDialog.value = false
+}
+
+const closeReceipts = () => {
+    showReceiptsDialog.value = false
+}
 </script>
 <template>
     <Invoice :show="showInvoiceDialog" :invoice="invoice" :edit="edit" @close="close" />
     <View :show="showViewDialog" :invoice="invoice" @close="closeView" />
+    <Pay :show="showPayDialog" :invoice="invoice" @close="closePay" />
+    <Receipts :show="showReceiptsDialog" :invoice="invoice" @close="closeReceipts" />
     <AppLayout title="Invoices">
         <div class="py-2">
             <div class="sm:px-6 lg:px-8">
@@ -143,6 +167,10 @@ const closeView = () => {
                                 </div>
                             </div>
                             <div class="flex-none flex gap-2">
+                                <SecondaryButton class="flex items-center gap-2" @click="showReceipts(invoice)">
+                                    <Icon type="icon-cloud-download-93" />
+                                    <span class="hidden md:inline">Receipts</span>
+                                </SecondaryButton>
                                 <SecondaryButton class="flex items-center gap-2" @click="downloadInvoice(invoice)">
                                     <Icon type="icon-cloud-download-93" />
                                     <span class="hidden md:inline">Download</span>
@@ -150,6 +178,10 @@ const closeView = () => {
                                 <SecondaryButton class="flex items-center gap-2" @click="downloadDelivery(invoice)">
                                     <Icon type="icon-cloud-download-93" />
                                     <span class="hidden md:inline">Delivery</span>
+                                </SecondaryButton>
+                                <SecondaryButton class="flex items-center gap-2" @click="payInvoice(invoice)">
+                                    <Icon type="icon-paper" />
+                                    <span class="hidden md:inline">Pay</span>
                                 </SecondaryButton>
                                 <SecondaryButton class="flex items-center gap-2" @click="viewInvoice(invoice)">
                                     <Icon type="icon-paper" />

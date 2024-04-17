@@ -107,7 +107,7 @@ header .text .contact .value {
 .wrapper .container table.table tr td {
     padding: 0.6rem 0.5rem;
     font-size: 0.9rem;
-    line-height: 1;
+    line-height: 1.75;
 }
 
 .wrapper .container table.table tr th.text-right,

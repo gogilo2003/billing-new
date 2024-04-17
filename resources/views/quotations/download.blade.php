@@ -96,7 +96,8 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="quotation-footer">
+            <div class="quotation-footer"
+                style="position:relative;@if (config('billing.tax.show')) {{ 'top:-8rem' }}@else{{ 'top:-2.5rem' }} @endif">
                 <h4 class="text-uppercase">MPESA</h4>
                 <ol>
                     <li>Go to Lipa Na M-PESA</li>

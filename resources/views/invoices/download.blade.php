@@ -82,14 +82,14 @@
                 <tfoot>
                     @if (config('billing.tax.show'))
                         <tr>
-                            <td class="text-right" colspan="4" style="font-weight:bold;">
+                            <td class="text-right" colspan="4" style="font-weight:400;">
                                 SUB-TOTAL
                             </td>
-                            <td class="text-right">{{ config('billing.currency') }}
+                            <td class="text-right total">{{ config('billing.currency') }}
                                 {{ number_format($invoice->subTotal(), 2) }}</td>
                         </tr>
                         <tr>
-                            <td class="text-right" colspan="4" style="font-weight:bold;">
+                            <td class="text-right" colspan="4" style="font-weight:400;">
                                 TAX
                             </td>
                             <td class="text-right total">{{ config('billing.currency') }}
@@ -98,21 +98,21 @@
                         </tr>
                     @endif
                     <tr>
-                        <td class="text-right" colspan="4" style="font-weight:bold;">
+                        <td class="text-right" colspan="4" style="font-weight:400;">
                             TOTAL
                         </td>
                         <td class="text-right total">
                             {{ config('billing.currency') }} {{ number_format($invoice->amount(), 2) }}</td>
                     </tr>
                     <tr>
-                        <td class="text-right" colspan="4" style="font-weight:bold;">
+                        <td class="text-right" colspan="4" style="font-weight:400;">
                             Paid
                         </td>
                         <td class="text-right total">
                             {{ config('billing.currency') }} {{ number_format($invoice->paid(), 2) }}</td>
                     </tr>
-                    <tr>
-                        <td class="text-right" colspan="4" style="font-weight:bold;">
+                    <tr style="backround-color:#116AC3">
+                        <td class="text-right" colspan="4" style="font-weight:400;">
                             Balance Due
                         </td>
                         <td class="text-right total">
@@ -120,7 +120,8 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="invoice-footer">
+            <div class="invoice-footer bg-green-400"
+                style="position:relative;@if (config('billing.tax.show')) {{ 'top:-13rem' }}@else{{ 'top:-7.5rem' }} @endif">
                 @if (config('billing.mpesa'))
                     <h4 class="text-uppercase">MPESA</h4>
                     @if (config('billing.mpesa.buy_goods'))
@@ -149,11 +150,12 @@
                         </ol>
                     @endif
                 @endif
-                <h4 class="text-uppercase">Cheque Payment</h4>
+                <h4 class="text-uppercase">
+                    Cheque Payment</h4>
                 <p class="category">Make all cheques payable to <strong>{{ config('app.name') }}</strong>.
                     @if (config('billing.tax.vat.type') === 'inclusive')
                         <br>All prices inclusive of
-                        {{ config('billing.tax.vat.rate') }} VAT
+                        <strong>{{ config('billing.tax.vat.rate') }}%</strong> VAT
                     @endif
                 </p>
             </div>
@@ -188,9 +190,13 @@
         }
 
         .total {
-            font-weight: bold;
+            font-weight: 400;
             font-size: 0.8em;
-            border-bottom: 1px solid #333;
+        }
+
+        .total-due {
+            background-color: #116AC3;
+            color: #fff;
         }
     </style>
 @endpush

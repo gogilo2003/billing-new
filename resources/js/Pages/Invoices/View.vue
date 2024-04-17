@@ -4,7 +4,7 @@ import SecondaryButton from '../../Components/SecondaryButton.vue';
 import Icon from '../../Components/Icons/Icon.vue'
 import Modal from '../../Components/Modal.vue';
 import { formatDate, formatCurrency } from '../../helpers';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import PrimaryButton from '../../Components/PrimaryButton.vue';
 
 const props = defineProps<{
     invoice: iInvoice

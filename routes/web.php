@@ -74,8 +74,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('create', [InvoiceController::class, 'store'])->name('-store');
         Route::patch('{invoice}', [InvoiceController::class, 'update'])->name('-update');
         Route::post('merge', [InvoiceController::class, 'postMerge'])->name('-merge-post');
-        Route::get('download/{id}', [InvoiceController::class, 'downloadInvoice'])->name('-download');
-        Route::get('delivery/{id}', [InvoiceController::class, 'downloadDelivery'])->name('-delivery');
+        Route::get('{id}/download', [InvoiceController::class, 'downloadInvoice'])->name('-download');
+        Route::get('{id}/delivery', [InvoiceController::class, 'downloadDelivery'])->name('-delivery');
+        Route::post('{id}/pay', [InvoiceController::class, 'pay'])->name('-pay');
+        Route::get('{receipt_id}/receipt', [InvoiceController::class, 'receipt'])->name('-receipt');
     });
 
     Route::name('product_categories')->prefix('product_categories')->group(function () {

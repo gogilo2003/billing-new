@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Http\Requests\V1\PayInvoiceRequest;
 
 class InvoiceController extends Controller
 {
@@ -30,7 +31,12 @@ class InvoiceController extends Controller
         if ($client_id) {
             $client = Client::find($client_id);
         }
-        $invoices = Invoice::with('account.client')
+        $invoices = Invoice::with([
+            'account.client',
+            'transactions' => function ($query) {
+                $query->where('type', 'CR');
+            }
+        ])
             ->orderBy('id', 'DESC')
             ->when($client_id, function ($query) use ($client_id) {
                 $query->where('client_id', '=', $client_id);
@@ -61,6 +67,8 @@ class InvoiceController extends Controller
                     "name" => $item->name,
                     "ref" => $item->ref,
                     "amount" => $item->amount(),
+                    "paid" => $item->paid(),
+                    "balance" => $item->amount() - $item->paid(),
                     "barcode" => $item->barcode,
                     "qrcode" => $item->qrcode,
                     "date" => $item->created_at,
@@ -89,11 +97,20 @@ class InvoiceController extends Controller
                         "quantity" => $item->quantity,
                         "price" => $item->price,
                     ]),
+                    "receipts" => $item->transactions->map(fn($item) => [
+                        "id" => $item->id,
+                        "particulars" => $item->particulars,
+                        "method" => $item->method,
+                        "amount" => $item->amount,
+                        "transaction_ref" => $item->transaction_ref,
+                        "date" => $item->created_at->isoFormat("ddd D MMM Y"),
+                    ]),
                 ];
             }),
             'client' => $client,
             'searchVal' => $search,
             'accounts' => $accounts,
+            'receiptId' => session('receiptId'),
         ]);
     }
 
@@ -188,7 +205,7 @@ class InvoiceController extends Controller
             ->setOption('margin-bottom', 13)
             ->setOption('header-html', public_path('pdf/header.html'))
             ->setOption('footer-html', public_path('pdf/footer.html'));
-        return $pdf->download('Invoice#' . str_pad($invoice->id, 4, '0', 0) . '.pdf');
+        return $pdf->stream('Invoice#' . str_pad($invoice->id, 4, '0', 0) . '.pdf');
     }
 
     public function downloadDelivery($id)
@@ -213,8 +230,50 @@ class InvoiceController extends Controller
         return $pdf->download('delivery#' . str_pad($invoice->delivery->id, 4, '0', 0) . '.pdf');
     }
 
+    /**
+     * Merge Invoices
+     * @param \Illuminate\Http\Request $request
+     * @return never
+     */
     public function postMerge(Request $request)
     {
         dd($request->except('_token'));
+    }
+
+    function pay(PayInvoiceRequest $request, $id)
+    {
+        // Assuming you have a Receipt model with an ID
+        $invoice = Invoice::find($id);
+
+        $receipt = new Transaction();
+        $receipt->invoice_id = $invoice->id;
+        $receipt->amount = $request->amount;
+        $receipt->particulars = $request->particulars;
+        $receipt->method = $request->method;
+        $receipt->transaction_ref = $request->transaction_ref;
+        $receipt->type = "CR";
+        $receipt->account_id = $invoice->account_id;
+        $receipt->save();
+
+        // Return the ID of the newly created receipt
+        // return response()->json(['receiptId' => $receipt->id]);
+        return redirect()->back()->with('success', 'Payment made successfully')->with('receiptId', $receipt->id);
+    }
+
+    function receipt($receipt_id)
+    {
+        $transaction = Transaction::with('account.client')->find($receipt_id);
+
+        $pdf = App::make('snappy.pdf.wrapper');
+        $pdf->loadView('accounts.transactions.download', compact('transaction'));
+
+        return $pdf->setOption('no-outline', true)
+            ->setOption('page-height', '8.89in')
+            ->setOption('page-width', '3in')
+            ->setOption('margin-left', '0')
+            ->setOption('margin-right', '0')
+            ->setOption('margin-top', '0')
+            ->setOption('margin-bottom', '0')
+            ->download('receipt-' . $transaction->receipt_no . '.pdf');
     }
 }

@@ -114,10 +114,9 @@ class Invoice extends Model
     function paid()
     {
         $amount = 0;
-        foreach ($this->transactions() as $key => $transaction) {
-            if ($transaction->type == 'cr') {
-                $amount += $transaction->amount;
-            }
+        $receipts = $this->transactions->where('type', 'CR');
+        foreach ($receipts as $transaction) {
+            $amount += $transaction->amount;
         }
         return $amount;
     }
