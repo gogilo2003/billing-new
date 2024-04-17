@@ -73,8 +73,8 @@ export interface iUser {
 
 export interface iInvoiceItem {
     id?: number
-    particulars: string
-    quantity: number
+    particulars: string | null
+    quantity: number | 0
     price: number
     editing?: boolean
 }

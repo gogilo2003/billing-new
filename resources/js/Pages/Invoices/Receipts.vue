@@ -60,7 +60,6 @@ const downloadReceipt = (receiptId) => {
                 <Icon type="icon-simple-remove" @click="close" class="cursor-pointer text-gray-50 font-semibold" />
             </div>
         </div>
-        <pre v-text="invoice.receipts[0]"></pre>
         <div class="px-5 py-6 flex flex-col gap-2">
             <div v-for="{ id, particulars, amount, method, date, transaction_ref } in invoice.receipts"
                 class="shadow rounded p-2 bg-gray-50">

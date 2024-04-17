@@ -166,35 +166,55 @@ const closeReceipts = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex-none flex gap-2">
-                                <SecondaryButton class="flex items-center gap-2" @click="showReceipts(invoice)">
-                                    <Icon type="icon-cloud-download-93" />
-                                    <span class="hidden md:inline">Receipts</span>
+                            <div class="group relative">
+                                <SecondaryButton class="flex items-center gap-2">
+                                    <span>Tasks</span>
+                                    <Icon type="icon-minimal-down" />
                                 </SecondaryButton>
-                                <SecondaryButton class="flex items-center gap-2" @click="downloadInvoice(invoice)">
-                                    <Icon type="icon-cloud-download-93" />
-                                    <span class="hidden md:inline">Download</span>
-                                </SecondaryButton>
-                                <SecondaryButton class="flex items-center gap-2" @click="downloadDelivery(invoice)">
-                                    <Icon type="icon-cloud-download-93" />
-                                    <span class="hidden md:inline">Delivery</span>
-                                </SecondaryButton>
-                                <SecondaryButton class="flex items-center gap-2" @click="payInvoice(invoice)">
-                                    <Icon type="icon-paper" />
-                                    <span class="hidden md:inline">Pay</span>
-                                </SecondaryButton>
-                                <SecondaryButton class="flex items-center gap-2" @click="viewInvoice(invoice)">
-                                    <Icon type="icon-paper" />
-                                    <span class="hidden md:inline">View</span>
-                                </SecondaryButton>
-                                <SecondaryButton class="flex items-center gap-2" @click="editInvoice(invoice)">
-                                    <Icon type="icon-pencil" />
-                                    <span class="hidden md:inline">Edit</span>
-                                </SecondaryButton>
-                                <SecondaryButton class="flex items-center gap-2" @click="deleteInvoice(invoice.id)">
-                                    <Icon type="icon-trash-simple" />
-                                    <span class="hidden md:inline">Delete</span>
-                                </SecondaryButton>
+                                <div
+                                    class="absolute w-40 top-[100%] right-0 z-10 bg-gray-50 grid grid-rows-[0] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-300">
+                                    <div class="overflow-hidden">
+                                        <div class="flex-none flex flex-col gap-1">
+                                            <div class="overflow-hidden">
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="showReceipts(invoice)">
+                                                    <Icon type="icon-tag" />
+                                                    <span class="hidden md:inline">Receipts</span>
+                                                </SecondaryButton>
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="downloadInvoice(invoice)">
+                                                    <Icon type="icon-cloud-download-93" />
+                                                    <span class="hidden md:inline">Download</span>
+                                                </SecondaryButton>
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="downloadDelivery(invoice)">
+                                                    <Icon type="icon-delivery-fast" />
+                                                    <span class="hidden md:inline">Delivery</span>
+                                                </SecondaryButton>
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="payInvoice(invoice)">
+                                                    <Icon type="icon-money-coins" />
+                                                    <span class="hidden md:inline">Pay</span>
+                                                </SecondaryButton>
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="viewInvoice(invoice)">
+                                                    <Icon type="icon-paper" />
+                                                    <span class="hidden md:inline">View</span>
+                                                </SecondaryButton>
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="editInvoice(invoice)">
+                                                    <Icon type="icon-pencil" />
+                                                    <span class="hidden md:inline">Edit</span>
+                                                </SecondaryButton>
+                                                <SecondaryButton class="flex items-center gap-2 w-full justify-start"
+                                                    @click="deleteInvoice(invoice.id)">
+                                                    <Icon type="icon-trash-simple" />
+                                                    <span class="hidden md:inline">Delete</span>
+                                                </SecondaryButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <Paginator :items="invoices" />

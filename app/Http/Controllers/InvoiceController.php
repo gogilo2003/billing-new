@@ -269,7 +269,7 @@ class InvoiceController extends Controller
 
         return $pdf->setOption('no-outline', true)
             ->setOption('page-height', '8.89in')
-            ->setOption('page-width', '3in')
+            ->setOption('page-width', '4.5in')
             ->setOption('margin-left', '0')
             ->setOption('margin-right', '0')
             ->setOption('margin-top', '0')

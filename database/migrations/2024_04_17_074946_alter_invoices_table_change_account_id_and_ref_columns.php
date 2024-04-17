@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->unsignedInteger("account_id")->nullable()->after("client_id");
-            $table->string("ref")->nullable()->after("client_id");
+            $table->unsignedInteger("account_id")->nullable()->after("client_id")->change();
+            $table->string("ref")->nullable()->after("account_id")->change();
         });
     }
 
