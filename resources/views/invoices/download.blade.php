@@ -130,7 +130,7 @@
                             <li>Select Buy Goods</li>
                             <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
                             <li>Enter the amount ({{ config('billing.currency') }}
-                                {{ number_format($invoice->amount(), 2) }})
+                                {{ number_format($invoice->balance(), 2) }})
                             </li>
                             <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong>
                             </li>

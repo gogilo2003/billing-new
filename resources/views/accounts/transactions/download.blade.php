@@ -36,7 +36,10 @@
         <div class="text-center amount">
             <div class="number">Kshs {{ number_format($transaction->amount, 2) }}</div>
             <div class="word">Kenya shillings {{ $transaction->amount_word }}</div>
-            <div class="method">{{ $transaction->method }}</div>
+            <div class="method">{{ $transaction->method }}@if ($transaction->transaction_ref)
+                    ({{ $transaction->transaction_ref }})
+                @endif
+            </div>
         </div>
         <div class="text-center particulars">
             <div class="caption">Being payment for</div>
