@@ -13,9 +13,13 @@ class AlterTableProductsAddColumnDescription extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('products') && Schema::hasForeignKey('products', ['product_category_id'])) {
+            Schema::table('products', function (Blueprint $table) {
+                $table->dropForeign(['product_category_id']);
+            });
+        }
         Schema::table('products', function (Blueprint $table) {
             $table->mediumText('description')->nullable();
-            $table->dropForeign(['product_category_id']);
             $table->foreign('product_category_id')
                 ->references('id')
                 ->on('product_categories')
