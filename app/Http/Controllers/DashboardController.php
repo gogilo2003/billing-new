@@ -38,11 +38,11 @@ class DashboardController extends Controller
 
         $balance = $balance * -1;
 
-        $total = $cr + $dr + $balance;
+        // $total = $cr + $dr + $balance;
 
-        $pcr = round($cr / $total * 100);
-        $pdr = round($dr / $total * 100);
-        $pbalance = round($balance / $total * 100);
+        // $pcr = round($cr / $total * 100);
+        // $pdr = round($dr / $total * 100);
+        // $pbalance = round($balance / $total * 100);
 
 
         // $lCr = $pcr . '% (' . number_format($cr, 2) . ')';
