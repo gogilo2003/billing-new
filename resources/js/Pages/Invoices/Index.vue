@@ -41,7 +41,7 @@ const swal = Swal.mixin({
 });
 
 watch(() => search.value, debounce(value => {
-    router.get(route('invoices'), { page: props?.invoices?.current_page, search: value }, {
+    router.get(route('invoices'), { search: value }, {
         preserveScroll: true,
         preserveState: true,
         only: ['searchVal', 'invoices']
@@ -131,7 +131,7 @@ const closeReceipts = () => {
     <AppLayout title="Invoices">
         <div class="py-2">
             <div class="sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="bg-white shadow-xl sm:rounded-lg">
                     <div class="py-3 px-6 flex gap-3 md:gap-6 items-center">
                         <div class="flex-1">
                             <TextInput type="search" aria-placeholder="Search..." placeholder="Search..."

@@ -1,21 +1,40 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import Icon from './Icons/Icon.vue';
+import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
     items: Object
 })
 
 const lt = ref('&laquo; Previous');
 const gt = ref('Next &raquo;');
 
+const links = computed(() => {
+    return props.items.links.map(link => {
+        let search = usePage().props.searchVal
+        if (link.url && search) {
+            let queryArray = link.url.split('?')
+            if (queryArray.length > 1) {
+                let baseUrl = queryArray[0]
+                let queryString = queryArray[1]
+                const queryParams = new URLSearchParams(queryString)
+                queryParams.set('search', search)
+                let updatedQueryString = queryParams.toString();
+                link.url = updatedQueryString ? `${baseUrl}?${updatedQueryString}` : baseUrl;
+            }
+        }
+        return link
+    })
+})
+
 </script>
 <template>
     <div class="shadow my-3 border bg-gray-50 rounded-xl px-4 py-3">
         <nav aria-label="Pagination" class="">
             <ul class="flex items-center -space-x-px h-8 text-sm gap-1 justify-center">
-                <li v-for="link in items?.links">
+                <li v-for="link in links">
                     <component :is="link.url ? Link :'span'" v-if="link.label == lt" :href="link.url"
                         class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg rounded-l-3xl hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         <span class="sr-only">Previous</span>
