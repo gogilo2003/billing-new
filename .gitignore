@@ -17,3 +17,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+*.tar.gz
+*.zip
+*.tgz
+public/pdf
+public/pdf/header.html
+public/pdf/footer.html
