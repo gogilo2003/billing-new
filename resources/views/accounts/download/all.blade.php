@@ -10,7 +10,6 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Account</th>
                     <th>Account Name</th>
                     <th class="text-right">DEBIT</th>
                     <th class="text-right">CREDIT</th>
@@ -19,17 +18,16 @@
             </thead>
             <tbody>
                 @foreach ($accounts as $account)
-                    {{-- <tr>
+                    <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            <div>{{ $account->client->name }}</div>
+                            <div>{{ $account->client }}</div>
                             <div>{{ $account->name }}</div>
                         </td>
-                        <td class="text-right">{{ $, 2) : '' }}</td>
-                        <td class="text-right">{{ $tx->type === 'CR' ? number_format($tx->amount, 2) : '' }}</td>
-                        <td class="text-right">{{ $tx->type === 'CR' ? number_format($tx->amount, 2) : '' }}</td>
-                    </tr> --}}
-                    @dump($accounts)
+                        <td class="text-right">{{ $account->debit }}</td>
+                        <td class="text-right">{{ $account->credit }}</td>
+                        <td class="text-right" style="white-space: nowrap">{{ $account->balance }}</td>
+                    </tr>
                 @endforeach
 
             </tbody>

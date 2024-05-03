@@ -14,6 +14,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateTransactionRequest;
 
 class AccountController extends Controller
 {
@@ -32,43 +33,43 @@ class AccountController extends Controller
                 ->orWhereHas('client', function ($query) use ($search) {
                     $query->where('name', 'LIKE', "%$search%");
                 });
-        })->get()->map(fn ($item) => [
-            "id" => $item->id,
-            "name" => $item->name,
-            "amount" => $item->dr,
-            "paid" => $item->cr,
-            "balance" => $item->balance,
-            "latest_payment_date" => $item->latest_cr_date,
-            "latest_charge_date" => $item->latest_dr_date,
-            "latest_transaction_date" => $item->latest_transaction_date,
-            "client" => [
-                "id" => $item->client->id,
-                "name" => Str::ucfirst(Str::lower($item->client->name)),
-                "email" => Str::lower($item->client->email),
-                "phone" => $item->client->phone,
-                "box_no" => ltrim(Str::lower($item->client->box_no), 'p.o. box'),
-                "post_code" => $item->client->post_code,
-                "town" => $item->client->town,
-                "address" => Str::title($item->client->address),
-                "balance" => $item->client->balance,
-                "latest_payment_date" => $item->client->latest_cr_date,
-                "latest_charge_date" => $item->client->latest_dr_date,
-                "latest_transaction_date" => $item->client->latest_transaction_date,
-            ],
-            "transactions" => $item->transactions->map(fn ($item) => [
+        })->get()->map(fn($item) => [
                 "id" => $item->id,
-                "particulars" => $item->particulars,
-                "type" => $item->type,
-                "amount" => $item->amount,
-                "amount_word" => $item->amount_word,
-                "method" => $item->method,
-                "cr" => $item->cr,
-                "dr" => $item->dr,
-                "transaction_date" => $item->transaction_date,
-                "barcode" => $item->barcode,
-                "qrcode" => $item->qrcode,
-            ]),
-        ])->toArray();
+                "name" => $item->name,
+                "amount" => $item->dr,
+                "paid" => $item->cr,
+                "balance" => $item->balance,
+                "latest_payment_date" => $item->latest_cr_date,
+                "latest_charge_date" => $item->latest_dr_date,
+                "latest_transaction_date" => $item->latest_transaction_date,
+                "client" => [
+                    "id" => $item->client->id,
+                    "name" => Str::ucfirst(Str::lower($item->client->name)),
+                    "email" => Str::lower($item->client->email),
+                    "phone" => $item->client->phone,
+                    "box_no" => ltrim(Str::lower($item->client->box_no), 'p.o. box'),
+                    "post_code" => $item->client->post_code,
+                    "town" => $item->client->town,
+                    "address" => Str::title($item->client->address),
+                    "balance" => $item->client->balance,
+                    "latest_payment_date" => $item->client->latest_cr_date,
+                    "latest_charge_date" => $item->client->latest_dr_date,
+                    "latest_transaction_date" => $item->client->latest_transaction_date,
+                ],
+                "transactions" => $item->transactions->map(fn($item) => [
+                    "id" => $item->id,
+                    "particulars" => $item->particulars,
+                    "type" => $item->type,
+                    "amount" => $item->amount,
+                    "amount_word" => $item->amount_word,
+                    "method" => $item->method,
+                    "cr" => $item->cr,
+                    "dr" => $item->dr,
+                    "transaction_date" => $item->transaction_date,
+                    "barcode" => $item->barcode,
+                    "qrcode" => $item->qrcode,
+                ]),
+            ])->toArray();
 
         // Sort the array by the "balance" accessor
         usort($accounts, function ($a, $b) {
@@ -94,7 +95,7 @@ class AccountController extends Controller
         // return view('clients.index', compact('clients'));
         $data = [
             'accounts' => $accountsPaginated,
-            'clients' => Client::orderBy('name')->get()->map(fn ($item) => [
+            'clients' => Client::orderBy('name')->get()->map(fn($item) => [
                 "id" => $item->id,
                 "name" => $item->name
             ])
@@ -120,25 +121,8 @@ class AccountController extends Controller
             ->with('success', 'Account created successfully');
     }
 
-    public function postTransaction(Request $request)
+    public function postTransaction(UpdateTransactionRequest $request)
     {
-        // dd($request->all());
-
-        $validator = Validator::make($request->all(), [
-            'type' => 'required',
-            'account' => 'required|integer',
-            'particulars' => 'required',
-            'amount' => 'required|numeric',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors($validator)
-                ->with('global-warning', 'Some fields failed validation. Please check and try again');
-        }
-
         $account = Account::find($request->account);
 
         $this->transact($account, $request->particulars, $request->type, $request->amount, $request->method);
@@ -185,10 +169,10 @@ class AccountController extends Controller
             $transaction = new Transaction;
         }
 
-        $transaction->particulars   = $particulars;
-        $transaction->type          = $type;
-        $transaction->amount        = $amount;
-        $transaction->method        = $method;
+        $transaction->particulars = $particulars;
+        $transaction->type = $type;
+        $transaction->amount = $amount;
+        $transaction->method = $method;
         if ($invoice_id) {
             $transaction->invoice_id = $invoice_id;
         }
@@ -201,9 +185,12 @@ class AccountController extends Controller
     {
         if ($id) {
             try {
-                $account = Account::with(['client', 'transactions' => function ($query) {
-                    return $query->orderBy("created_at", "DESC");
-                }])->find($id);
+                $account = Account::with([
+                    'client',
+                    'transactions' => function ($query) {
+                        return $query->orderBy("created_at", "DESC");
+                    }
+                ])->find($id);
                 $pdf = App::make('snappy.pdf.wrapper');
                 $pdf->loadView('accounts.download.account', compact('account'));
                 return $pdf->setOption('no-outline', true)
@@ -219,9 +206,22 @@ class AccountController extends Controller
             }
         } else {
             try {
-                $accounts = Account::with(['client', 'transactions' => function ($query) {
-                    return $query->orderBy("created_at", "DESC");
-                }])->get();
+                $accounts = Account::with([
+                    'client',
+                    'transactions' => function ($query) {
+                        return $query->orderBy("created_at", "DESC");
+                    }
+                ])->get()->sortByDesc(function ($a, $b) {
+                    return $b - (float) $a->balance;
+                })->map(fn($item) => (object) [
+                        "id" => $item->id,
+                        "name" => $item->name,
+                        "client" => $item->client->name,
+                        "credit" => number_format($item->cr(), 2),
+                        "debit" => number_format($item->dr(), 2),
+                        "balance" => number_format($item->balance(), 2),
+                    ]);
+                // die();
                 $pdf = App::make('snappy.pdf.wrapper');
                 $pdf->loadView('accounts.download.all', compact('accounts'));
                 return $pdf->setOption('no-outline', true)

@@ -27,25 +27,15 @@ class Invoice extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function subTotal()
-    {
-        if (config('app.tax.vat.type') === 'inclusive')
-            return $this->amount() * (100 / (100 + (int)config('app.tax.vat.rate')));
-
-        return $this->amount();
-    }
-
-    public function tax()
-    {
-        if (config('app.tax.vat.type') === 'inclusive')
-            return $this->amount() * ((int)config('app.tax.vat.rate') / (100 + (int)config('app.tax.vat.rate')));
-
-        return $this->amount() * ((int)config('app.tax.vat.rate') / 100);
-    }
-
     public function amount()
     {
+        return $this->subTotal() + $this->tax();
+    }
+
+    public function subTotal()
+    {
         $amount = 0;
+        $this->load('items');
         foreach ($this->items as $item) {
             $amount += $item->amount();
         }
@@ -53,12 +43,14 @@ class Invoice extends Model
         return $amount;
     }
 
-    public function grandTotal()
+    public function tax()
     {
-        if (config('app.tax.vat.type') === 'inclusive')
-            return $this->amount();
 
-        return $this->amount() + $this->tax();
+        if (config('billing.tax.show')) {
+            return $this->subTotal() * ((int) config('billing.tax.vat.rate') / 100);
+        }
+
+        return 0;
     }
 
     public function delivery()
@@ -80,7 +72,6 @@ class Invoice extends Model
     {
         return $this->belongsTo(Client::class);
     }
-
 
     public function getBarcodeAttribute()
     {
@@ -105,10 +96,33 @@ class Invoice extends Model
             ->setErrorCorrection('high')
             ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
             ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-            ->setLabel('Scan Qr Code')
+            ->setLabel(null)
             ->setLabelFontSize(16)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
 
-        return  'data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate();
+        return 'data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate();
+    }
+
+    function getTaxType()
+    {
+        if ($this->tax_type) {
+            return $this->tax_type;
+        }
+        return config('billing.tax.vat.type');
+    }
+
+    function paid()
+    {
+        $amount = 0;
+        $receipts = $this->transactions->where('type', 'CR');
+        foreach ($receipts as $transaction) {
+            $amount += $transaction->amount;
+        }
+        return $amount;
+    }
+
+    function balance()
+    {
+        return $this->amount() - $this->paid();
     }
 }

@@ -35,12 +35,10 @@
 
 <body onload="subst()">
     <footer class="footer font-poiret-one">
-        <p class="copyright">
-            <span class=" text-uppercase"> &copy; {{ date('Y') }} {{ config('app.name') }}</span>
-            <!--<br>
-                <small>Page <span class="page"></span> of <span class="topage"></span></small>
-                -->
-        </p>
+        <div class="footer-wrap">
+            <div class=" text-uppercase" id="copyright"> &copy; {{ date('Y') }} {{ config('app.name') }}</div>
+            <div id="page_number">Page <span class="page"></span> of <span class="topage"></span></div>
+        </div>
     </footer>
 </body>
 

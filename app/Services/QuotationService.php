@@ -19,7 +19,7 @@ class QuotationService
      *
      * @return \App\Models\Quotation
      */
-    function store(int $client_id, int $user_id, int $validity, array $items,  String $description = ""): Quotation
+    function store(int $client_id, int $user_id, int $validity, array $items, string $description = ""): Quotation
     {
         $quotation = new Quotation();
         $quotation->client_id = $client_id;
@@ -55,9 +55,9 @@ class QuotationService
      *
      * @return \App\Models\Quotation
      */
-    function update(int $id, int $client_id, int $user_id, int $validity, array $items, string $description = "")
+    function update(Quotation $quotation, int $client_id, int $user_id, int $validity, array $items, string $description = "")
     {
-        $quotation = Quotation::find($id);
+        // $quotation = Quotation::find($id);
         $quotation->client_id = $client_id;
         $quotation->user_id = $user_id;
         $quotation->validity = $validity;

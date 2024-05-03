@@ -4,6 +4,7 @@
 // use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use Illuminate\Support\Carbon;
 use App\Services\QuotationService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -11,11 +12,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\ProductCategoryController;
 
@@ -32,9 +35,7 @@ use App\Http\Controllers\ProductCategoryController;
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
 
-    Route::get('/', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('clients')->name('clients')->group(function () {
         Route::get('', [ClientController::class, 'index']);
@@ -71,9 +72,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('edit/{id}', [InvoiceController::class, 'edit'])->name('-edit');
         Route::get('view/{id}', [InvoiceController::class, 'show'])->name('-view');
         Route::post('create', [InvoiceController::class, 'store'])->name('-store');
+        Route::patch('{invoice}', [InvoiceController::class, 'update'])->name('-update');
         Route::post('merge', [InvoiceController::class, 'postMerge'])->name('-merge-post');
-        Route::get('download/{id}', [InvoiceController::class, 'downloadInvoice'])->name('-download');
-        Route::get('delivery/{id}', [InvoiceController::class, 'downloadDelivery'])->name('-delivery');
+        Route::get('{id}/download', [InvoiceController::class, 'downloadInvoice'])->name('-download');
+        Route::get('{id}/delivery', [InvoiceController::class, 'downloadDelivery'])->name('-delivery');
+        Route::post('{id}/pay', [InvoiceController::class, 'pay'])->name('-pay');
+        Route::get('{receipt_id}/receipt', [InvoiceController::class, 'receipt'])->name('-receipt');
     });
 
     Route::name('product_categories')->prefix('product_categories')->group(function () {
@@ -114,9 +118,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     })->name('domains');
 
     Route::prefix('quotations')->name('quotations')->group(function () {
-        Route::get('', function () {
-            return view('quotations.index');
-        })->name('');
+        Route::get('', [QuotationController::class, 'index']);
+        Route::post('', [QuotationController::class, 'store'])->name('-store');
+        Route::patch('{quotation}', [QuotationController::class, 'update'])->name('-update');
+        Route::delete('{quotation}', [QuotationController::class, 'destroy'])->name('-destroy');
         Route::get("download/{id}", function (int $id, QuotationService $service) {
             return $service->download($id)->download('Quotation#' . str_pad($id, 4, '0', 0) . '.pdf');
         })->name('-download');

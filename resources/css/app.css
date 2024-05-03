@@ -5,3 +5,8 @@
 [x-cloak] {
     display: none;
 }
+
+:root {
+    --vs-font-size: 0.8rem;
+    --vs-line-height: 1.4;
+}

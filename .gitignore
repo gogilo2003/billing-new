@@ -23,3 +23,6 @@ yarn-error.log
 public/pdf
 public/pdf/header.html
 public/pdf/footer.html
+composer.lock
+package-lock.json
+/public/*.png

@@ -71,7 +71,7 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    @if (config('app.tax.show'))
+                    @if (config('billing.tax.show'))
                         <tr>
                             <td class="text-right" colspan="4" style="font-weight:bold;">
                                 SUB-TOTAL
@@ -96,18 +96,19 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="quotation-footer">
+            <div class="quotation-footer"
+                style="position:relative;@if (config('billing.tax.show')) {{ 'top:-8rem' }}@else{{ 'top:-2.5rem' }} @endif">
                 <h4 class="text-uppercase">MPESA</h4>
                 <ol>
                     <li>Go to Lipa Na M-PESA</li>
                     <li>Select Buy Goods</li>
-                    <li>Enter the Till Number <strong>{{ config('app.mpesa.buy_goods') }}</strong></li>
+                    <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
                     <li>Enter the amount (Kshs {{ number_format($quotation->amount(), 2) }})</li>
-                    <li>Enter Your PIN and confirm sending to <strong>{{ config('app.mpesa.name') }}</strong></li>
+                    <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong></li>
                 </ol>
                 <h4 class="text-uppercase">Cheque Payment</h4>
                 <p class="category">Make all cheques payable to <strong>{{ config('app.name') }}</strong>.
-                    <br>All prices inclusive of {{ config('app.vat') }} VAT
+                    <br>All prices inclusive of {{ config('billing.taxt.vat.rate') }} VAT
                 </p>
             </div>
         </div>

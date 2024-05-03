@@ -6,7 +6,6 @@
     <title>{{ config('app.name') }}</title>
     <style>
         @import url('{{ asset('/css/pdf.css') }}');
-
     </style>
     @stack('styles')
 </head>

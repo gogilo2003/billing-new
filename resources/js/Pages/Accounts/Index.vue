@@ -37,7 +37,11 @@ const swal = Swal.mixin({
 });
 
 watch(() => search.value, debounce(value => {
-    router.get(route('accounts'), { page: props?.accounts?.current_page, search: value })
+    router.get(route('accounts'), { page: props?.accounts?.current_page, search: value }, {
+        preserveScroll: true,
+        preserveState: true,
+        only: ['searchVal', 'accounts']
+    })
 }, 500))
 
 
@@ -108,8 +112,8 @@ const closeView = () => {
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="py-3 px-6 flex gap-3 md:gap-6 items-center">
                         <div class="flex-1">
-                            <TextInput type="search" aria-placeholder="Search..." placeholder="Search..." v-model="search"
-                                class="w-full max-w-96" />
+                            <TextInput type="search" aria-placeholder="Search..." placeholder="Search..."
+                                v-model="search" class="w-full max-w-96" />
                         </div>
                         <div class="flex-none flex gap-2">
                             <SecondaryButton @click="downloadAccounts"
@@ -133,7 +137,8 @@ const closeView = () => {
                                         <span class="font-bold">Balance</span>
                                         <span v-text="formatCurrency(account?.balance)"></span>
                                     </div>
-                                    <div v-if="account.phone" class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
+                                    <div v-if="account.phone"
+                                        class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
                                         <span class="font-bold">Phone:</span>
                                         <span v-text="account?.phone"></span>
                                     </div>

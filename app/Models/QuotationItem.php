@@ -24,4 +24,15 @@ class QuotationItem extends Model
     {
         return $this->quantity * $this->price;
     }
+
+    function getPriceAttribute($value)
+    {
+        if (config("billing.tax.show")) {
+            if ($this->quotation->getTaxType() === 'inclusive') {
+                return $value * (100 / (100 + (int) config('billing.tax.vat.rate')));
+            }
+        }
+
+        return $value;
+    }
 }
