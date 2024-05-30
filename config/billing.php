@@ -12,6 +12,7 @@ return [
     'email' => env('BILLING_EMAIL', ''),
     'address' => env('BILLING_ADDRESS', ''),
     'mpesa' => [
+        'show' => env('BILLING_MPESA_SHOW', false),
         'buy_goods' => env('BILLING_MPESA_BUY_GOODS', ''),
         'name' => env('BILLING_MPESA_NAME')
     ],
