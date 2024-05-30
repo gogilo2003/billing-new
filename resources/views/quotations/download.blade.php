@@ -98,14 +98,34 @@
             </table>
             <div class="quotation-footer"
                 style="position:relative;@if (config('billing.tax.show')) {{ 'top:-8rem' }}@else{{ 'top:-2.5rem' }} @endif">
-                <h4 class="text-uppercase">MPESA</h4>
-                <ol>
-                    <li>Go to Lipa Na M-PESA</li>
-                    <li>Select Buy Goods</li>
-                    <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
-                    <li>Enter the amount (Kshs {{ number_format($quotation->amount(), 2) }})</li>
-                    <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong></li>
-                </ol>
+                @if (config('billing.mpesa.show'))
+                    <h4 class="text-uppercase">MPESA</h4>
+                    @if (config('billing.mpesa.buy_goods'))
+                        <ol>
+                            <li>Go to Lipa Na M-PESA</li>
+                            <li>Select Buy Goods</li>
+                            <li>Enter the Till Number <strong>{{ config('billing.mpesa.buy_goods') }}</strong></li>
+                            <li>Enter the amount ({{ config('billing.currency') }}
+                                {{ number_format($quotation->balance(), 2) }})
+                            </li>
+                            <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong>
+                            </li>
+                        </ol>
+                    @endif
+                    @if (config('billing.mpesa.pay_bill'))
+                        <ol>
+                            <li>Go to Lipa Na M-PESA</li>
+                            <li>Select Pay Bill</li>
+                            <li>Enter the Business No. <strong>{{ config('billing.mpesa.pay_bill') }}</strong></li>
+                            <li>Enter Account No. <strong>{{ $quotation->id }}</strong></li>
+                            <li>Enter the amount ({{ config('billing.currency') }}
+                                {{ number_format($quotation->amount(), 2) }})
+                            </li>
+                            <li>Enter Your PIN and confirm sending to <strong>{{ config('billing.mpesa.name') }}</strong>
+                            </li>
+                        </ol>
+                    @endif
+                @endif
                 <h4 class="text-uppercase">Cheque Payment</h4>
                 <p class="category">Make all cheques payable to <strong>{{ config('app.name') }}</strong>.
                     <br>All prices inclusive of {{ config('billing.taxt.vat.rate') }} VAT

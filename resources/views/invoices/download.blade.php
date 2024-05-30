@@ -122,7 +122,7 @@
             </table>
             <div class="invoice-footer bg-green-400"
                 style="position:relative;@if (config('billing.tax.show')) {{ 'top:-13rem' }}@else{{ 'top:-7.5rem' }} @endif">
-                @if (config('billing.mpesa'))
+                @if (config('billing.mpesa.show'))
                     <h4 class="text-uppercase">MPESA</h4>
                     @if (config('billing.mpesa.buy_goods'))
                         <ol>
