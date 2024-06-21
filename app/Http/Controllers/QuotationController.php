@@ -71,14 +71,6 @@ class QuotationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreQuotationRequest $request, QuotationService $service)
@@ -88,7 +80,8 @@ class QuotationController extends Controller
             $request->user()->id,
             $request->validity,
             $request->items,
-            $request->description
+            $request->description,
+            $request->notes
         );
 
         return redirect()->back()->with("success", "Quotation created");
@@ -105,7 +98,8 @@ class QuotationController extends Controller
             $request->user()->id,
             $request->validity,
             $request->items,
-            $request->description
+            $request->description,
+            $request->notes
         );
 
         return redirect()->back()->with('success', 'Quotation updated');
@@ -116,6 +110,7 @@ class QuotationController extends Controller
      */
     public function destroy(Quotation $quotation)
     {
+        $quotation->delete();
         return redirect()->back()->with('success', 'Quotation Deleted');
     }
 }

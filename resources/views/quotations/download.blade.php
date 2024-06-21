@@ -130,6 +130,9 @@
                 <p class="category">Make all cheques payable to <strong>{{ config('app.name') }}</strong>.
                     <br>All prices inclusive of {{ config('billing.taxt.vat.rate') }} VAT
                 </p>
+                @if ($quotation->notes)
+                    <div class="my-3">{{ $quotation->notes }}</div>
+                @endif
             </div>
         </div>
     </div>
