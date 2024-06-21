@@ -29,6 +29,7 @@ class QuotationController extends Controller
             ->paginate(5)->through(fn(Quotation $quotation) => (object) [
                 "id" => $quotation->id,
                 "description" => $quotation->description,
+                "notes" => $quotation->notes,
                 "validity" => $quotation->validity,
                 "sub_total" => $quotation->subTotal(),
                 "tax" => $quotation->tax(),

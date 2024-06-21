@@ -30,12 +30,20 @@ const swal = Swal.mixin({
     buttonsStyling: false
 });
 
-const form = useForm({
+const form = useForm<{
+    id: number | null
+    client: number | null
+    validity: number | null
+    description: string | null
+    notes: string | null
+    items: iQuotationItem[]
+}>({
     id: null,
     client: null,
     description: null,
     validity: null,
-    items: Array<iQuotationItem>,
+    notes: null,
+    items: [],
 })
 
 const quotationDialogTitle = computed(() => props.edit ? "Edit Quotation" : "New Quotation")
@@ -89,6 +97,7 @@ const cancel = () => {
     form.id = null
     form.client = null
     form.description = null
+    form.notes = null
     form.items = null
 }
 
@@ -98,6 +107,7 @@ watchEffect(() => {
     form.id = props.quotation?.id
     form.client = props.quotation?.client?.id
     form.description = props.quotation?.description
+    form.notes = props.quotation?.notes
     form.validity = props.quotation?.validity
     form.items = props.quotation?.items ?? []
 })
@@ -136,12 +146,20 @@ watchEffect(() => {
                     <InputLabel value="Quotation Details" />
                     <QuotationItems v-model:value="form.items" />
                 </div>
+                <div class="mb-4">
+                    <InputLabel value="Additional Notes" />
+                    <textarea
+                        class="border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm w-full"
+                        v-model="form.notes"></textarea>
+                    <InputError :message="form.errors.notes" />
+                </div>
             </div>
             <div class="px-6 py-3 flex justify-between items-center">
                 <SecondaryButton class="flex items-center gap-2" @click="close">
                     <Icon type="icon-simple-remove" /><span>Cancel</span>
                 </SecondaryButton>
-                <PrimaryButton class="flex items-center gap-2">
+                <PrimaryButton v-if="form.items.length" class="flex items-center gap-2"
+                    :class="{ 'opacity-30': form.processing }" :disabled="form.processing">
                     <Icon type="icon-check-2" /><span>Save</span>
                 </PrimaryButton>
             </div>
