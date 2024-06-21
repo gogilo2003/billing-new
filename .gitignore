@@ -26,3 +26,5 @@ public/pdf/footer.html
 composer.lock
 package-lock.json
 /public/*.png
+/public/.htaccess
+/public/images
