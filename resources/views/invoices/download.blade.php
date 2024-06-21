@@ -43,9 +43,9 @@
                             <br>{{ $invoice->name }}
                         </p>
                         @if ($invoice->ref)
-                            <p class="category">
-                                <b style="color: #116AC3">REF:</b>
-                                <br>{{ $invoice->ref }}
+                            <p class="category" style="margin-top:0.5rem">
+                                <b style="color: #116AC3">REF: </b>
+                                #{{ $invoice->ref }}
                             </p>
                         @endif
                     </td>

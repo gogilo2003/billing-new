@@ -136,6 +136,8 @@ class InvoiceController extends Controller
         $invoice->name = $request->input('name');
         $invoice->client_id = $account->client_id;
         $invoice->account_id = $account->id;
+        $invoice->ref = $request->ref;
+        $invoice->tax_type = $request->tax_type;
 
         $invoice->save();
 
@@ -164,6 +166,8 @@ class InvoiceController extends Controller
         $invoice->name = $request->input('name');
         $invoice->client_id = $account->client_id;
         $invoice->account_id = $account->id;
+        $invoice->ref = $request->ref;
+        $invoice->tax_type = $request->tax_type;
 
         $invoice->save();
 
@@ -205,7 +209,7 @@ class InvoiceController extends Controller
             ->setOption('margin-bottom', 13)
             ->setOption('header-html', public_path('pdf/header.html'))
             ->setOption('footer-html', public_path('pdf/footer.html'));
-        return $pdf->stream('Invoice#' . str_pad($invoice->id, 4, '0', 0) . '.pdf');
+        return $pdf->download('Invoice#' . str_pad($invoice->id, 4, '0', 0) . '.pdf');
     }
 
     public function downloadDelivery($id)
