@@ -19,6 +19,7 @@
         "giggsey/libphonenumber-for-php": "^8.13",
         "gogilo/barcode": "dev-main",
         "gogilo/laravel-api-response-helpers": "^1.0",
+        "graham-campbell/markdown": "^15.2",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
         "laravel/framework": "^10.10",

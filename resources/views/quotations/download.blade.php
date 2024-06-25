@@ -133,7 +133,9 @@
                 @if ($quotation->notes)
                     <div style="margin-top:1rem">
                         <h4 class="text-uppercase">NOTES</h4>
-                        <div class="my-3">{{ $quotation->notes }}</div>
+                        <div class="my-3">
+                            @markdown($quotation->notes)
+                        </div>
                     </div>
                 @endif
             </div>
