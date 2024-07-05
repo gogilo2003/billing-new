@@ -18,7 +18,7 @@
 					    </div>
 					</td>
 					<td valign="bottom" width="40%;" style="text-align:right">
-						<div class="category"><b>Date:</b> {{ $invoice->delivery->delivery_date }}</div>
+						<div class="category"><b>Date:</b> {{ date_create($invoice->delivery->delivery date)->format('D, j-M-Y') }}</div>
                         @if($invoice->order_no)
                         <div class="category"><b>Order No:</b> {{ $invoice->order_no }}</div>
                         @endif
