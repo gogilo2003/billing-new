@@ -49,7 +49,7 @@ class InvoiceController extends Controller
             ->paginate(10);
 
         $accounts = Account::with('client')
-            ->get()->map(fn($item) => [
+            ->get()->map(fn ($item) => [
                 "id" => $item->id,
                 // "name" => sprintf('%s - %s', $item->client->name, $item->name),
                 "client" => $item->client->name,
@@ -91,13 +91,13 @@ class InvoiceController extends Controller
                         ) : '',
                         "location" => $item->account->client->address,
                     ],
-                    "items" => $item->items->map(fn($item) => [
+                    "items" => $item->items->map(fn ($item) => [
                         "id" => $item->id,
                         "particulars" => $item->particulars,
                         "quantity" => $item->quantity,
                         "price" => $item->price,
                     ]),
-                    "receipts" => $item->transactions->map(fn($item) => [
+                    "receipts" => $item->transactions->map(fn ($item) => [
                         "id" => $item->id,
                         "particulars" => $item->particulars,
                         "method" => $item->method,
@@ -157,7 +157,6 @@ class InvoiceController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Invoice Created');
-
     }
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
@@ -188,7 +187,6 @@ class InvoiceController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Invoice Updated');
-
     }
 
     public function show($id)
@@ -219,11 +217,33 @@ class InvoiceController extends Controller
 
         if ($invoice->delivery === null) {
             $delivery = new Delivery;
+            $delivery->delivery_date = now();
             $invoice->delivery()->save($delivery);
         }
         $invoice->load('delivery');
 
-        $pdf->loadView('invoices.delivery', compact('invoice'))
+        $client = $invoice->client;
+        $delivery = (object)[
+            "id" => $invoice->delivery->id,
+            "delivery_date" => $invoice->delivery->delivery_date->isoFormat('D, d MMM, Y'),
+            "items" => $invoice->items->map(fn (InvoiceDetail $item) => (object)[
+                "id" => $item->id,
+                "particulars" => $item->particulars,
+                "quantity" => $item->quantity,
+            ])
+        ];
+
+        $pdf->loadView(
+            'invoices.delivery',
+            [
+                'client' => $client,
+                'delivery' => $delivery,
+                'invoice' => (object)[
+                    "id" => $invoice->id,
+                    "order_no" => $invoice->order_no,
+                ]
+            ]
+        )
             ->setOption('no-outline', true)
             ->setOption('margin-left', 0)
             ->setOption('margin-right', 0)
