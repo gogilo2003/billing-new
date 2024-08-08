@@ -12,15 +12,15 @@
                     <td valign="top" width="60%">
                         <div class="category">
                             <b style="color: #116AC3; text-transform: uppercase">Delivered To:</b><br>
-                            {{ $invoice->client->name }}<br>
+                            {{ $client->name }}<br>
                             P.O. Box
-                            {{ $invoice->client->box_no . ($invoice->client->post_code ? ' - ' . $invoice->client->post_code : '') . ($invoice->client->town ? ', ' . $invoice->client->town : '') }}<br>
-                            {{ $invoice->client->email }}, {{ $invoice->client->phone }}
+                            {{ $client->box_no . ($client->post_code ? ' - ' . $client->post_code : '') . ($client->town ? ', ' . $client->town : '') }}<br>
+                            {{ $client->email }}, {{ $client->phone }}
                         </div>
                     </td>
                     <td valign="bottom" width="40%;" style="text-align:right">
                         <div class="category"><b>Date:</b>
-                            {{ date_create($invoice->delivery->delivery_date)->format('D, j-M-Y') }}</div>
+                            {{ $delivery->delivery_date }}</div>
                         @if ($invoice->order_no)
                             <div class="category"><b>Order No:</b> {{ $invoice->order_no }}</div>
                         @endif
