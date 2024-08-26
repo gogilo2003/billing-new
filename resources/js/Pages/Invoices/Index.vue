@@ -154,6 +154,14 @@ const closeReceipts = () => {
                                         <span class="font-bold">Amount</span>
                                         <span v-text="formatCurrency(invoice?.amount)"></span>
                                     </div>
+                                    <div class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
+                                        <span class="font-bold">Paid</span>
+                                        <span v-text="formatCurrency(invoice?.paid)"></span>
+                                    </div>
+                                    <div class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
+                                        <span class="font-bold">Balance</span>
+                                        <span v-text="formatCurrency(invoice?.balance)"></span>
+                                    </div>
                                     <div v-if="invoice.phone"
                                         class="md:px-2 first:pl-0 last:pr-0 flex items-center gap-1">
                                         <span class="font-bold">Phone:</span>
