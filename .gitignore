@@ -28,4 +28,5 @@ package-lock.json
 /public/*.png
 /public/.htaccess
 /public/images
+!/public/images/icons
 /public/error_log
